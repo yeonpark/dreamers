@@ -8,6 +8,8 @@ class CarouselSliderManual extends StatefulWidget {
 }
 
 class _CarouselSliderManualState extends State<CarouselSliderManual> {
+  //A controller for [PageView].
+  // page controller lets you manipulate which page is visible in a [PageView].
   late PageController _pageController;
 
   List<String> images = [
@@ -16,6 +18,7 @@ class _CarouselSliderManualState extends State<CarouselSliderManual> {
     "https://uhdwallpapers.org/uploads/converted/20/01/14/the-mandalorian-5k-1920x1080_477555-mm-90.jpg"
   ];
 
+  // Widget for page indication
   List<Widget> indicators(imagesLength, currentIndex) {
     return List<Widget>.generate(imagesLength, (index) {
       return Container(
@@ -31,6 +34,7 @@ class _CarouselSliderManualState extends State<CarouselSliderManual> {
 
   int activePage = 0;
 
+  // Need explanation for why initState called here
   @override
   void initState() {
     super.initState();
@@ -50,6 +54,8 @@ class _CarouselSliderManualState extends State<CarouselSliderManual> {
               controller: _pageController,
               onPageChanged: (page) {
                 setState(() {
+                  // The activePage index is the page that is being displayed
+                  // This setState used for the indicator
                   activePage = page;
                 });
               },

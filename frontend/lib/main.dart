@@ -1,4 +1,4 @@
-import './widgets/test.dart';
+import 'widgets/category_listview.dart';
 import 'package:flutter/material.dart';
 import '/widgets/basic_info.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // Location of the search bar
           title: const Center(
             child: Text(
-              "Empty",
+              "Search bar",
               style: TextStyle(
                 color: Colors.black,
               ),
@@ -204,7 +204,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    MyWidget(index: selectedIndex),
+                    /* In future, when each widgets corresponding to the button have
+                    different contents, if statement can be applied here */
+                    CategoryListView(index: selectedIndex),
                   ],
                 ),
               ],

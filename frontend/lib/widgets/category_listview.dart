@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class MyWidget extends StatelessWidget {
+class CategoryListView extends StatelessWidget {
   final int index;
 
-  const MyWidget({
+  const CategoryListView({
     super.key,
     required this.index,
   });
