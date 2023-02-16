@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
+  cupertino_icons:
+    dependency: "direct main"
+    description:
+      name: cupertino_icons
+      sha256: e35129dc44c9118cee2a5603506d823bab99c68393879edb440e0090d07586be
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   english_words:
     dependency: "direct main"
     description:
@@ -225,5 +233,9 @@ packages:
     source: hosted
     version: "2.1.4"
 sdks:
+<<<<<<< HEAD
   dart: ">=2.18.4 <3.0.0"
+=======
+  dart: ">=2.19.0 <4.0.0"
+>>>>>>> f93de039f7b698e9082e81f2e6df677693b2a96a
   flutter: ">=2.12.0"

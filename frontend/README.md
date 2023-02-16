@@ -1,4 +1,4 @@
-# frontend
+# mock_airbnb
 
 A new Flutter project.
 

@@ -1,260 +1,84 @@
-import 'widgets/category_listview.dart';
 import 'package:flutter/material.dart';
-import '/widgets/basic_info.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-//import 'package:carousel_slider/carousel_slider.dart';
-import './widgets/carousel_slider.dart';
+import 'package:mock_airbnb/secondpage.dart';
+import 'package:mock_airbnb/firstpage.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+  State<MyApp> createState() => _MyAppState();
+}
 
-      // We need to decide the ThemeData for the project
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color.fromARGB(255, 236, 171, 193),
-          //secondary: Colors.green,
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: const TextTheme(
-          displayLarge: TextStyle(
-            color: Color(0xFF232B55),
-          ),
+class _MyAppState extends State<MyApp> {
+  int currentIndex = 0;
+  final screens = [
+    FirstPage(),
+    SecondPage(),
+    Center(
+      child: Text(
+        "where dreamers page should be",
+        style: TextStyle(
+          fontSize: 40,
         ),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final double goalPercentage = 40;
-
-  int selectedIndex = 0;
-  int index = 0;
-
-  // Required for the carousel slider widget from pub.dev
-  /*
-  List<String> images = [
-    "https://images.wallpapersden.com/image/download/purple-sunrise-4k-vaporwave_bGplZmiUmZqaraWkpJRmbmdlrWZlbWU.jpg",
-    "https://wallpaperaccess.com/full/2637581.jpg",
-    "https://uhdwallpapers.org/uploads/converted/20/01/14/the-mandalorian-5k-1920x1080_477555-mm-90.jpg"
+    ),
+    Center(
+      child: Text(
+        "where menu 3 page should be",
+        style: TextStyle(
+          fontSize: 40,
+        ),
+      ),
+    ),
+    Center(
+      child: Text(
+        "where menu 4 should be",
+        style: TextStyle(
+          fontSize: 40,
+        ),
+      ),
+    ),
   ];
-
-  List<Widget> indicators(imagesLength, currentIndex) {
-    return List<Widget>.generate(imagesLength, (index) {
-      return Container(
-        margin: const EdgeInsets.all(3),
-        width: 10,
-        height: 10,
-        decoration: BoxDecoration(
-            color: currentIndex == index ? Colors.black : Colors.black26,
-            shape: BoxShape.circle),
-      );
-    });
-  }
-  */
-
-  // Buttons for caurosel slider of the Description
-  List category = ['Summary', 'Full Story', 'Person Detail'];
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-
-          // Maybe can be used as button to go back to the home page?
-          leading: IconButton(
-            icon: Image.asset('assets/images/logo.png'),
-            onPressed: () {},
-          ),
-
-          // Location of the search bar
-          title: const Center(
-            child: Text(
-              "Search bar",
-              style: TextStyle(
-                color: Colors.black,
+    return MaterialApp(
+      home: Scaffold(
+          body: screens[currentIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: currentIndex,
+            onTap: (index) => setState(() => currentIndex = index),
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.white,
+            selectedItemColor: Color(0xffff295d),
+            unselectedItemColor: Colors.black.withOpacity(0.5),
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Menu 1',
               ),
-            ),
-          ),
-
-          // Need the name of the icon used in the ui mock up
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.person_2_outlined,
-                color: Colors.black,
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border_outlined),
+                label: 'Menu 2',
               ),
-              onPressed: () {},
-            ),
-          ],
-        ),
-        body: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(15),
-              // Widget in basic_info.dart to present the basic info about the item <Stateless>
-              child: BasicInfo(
-                title: 'Title',
-                postdate: 'Posted Date',
-                name: 'Name',
-                country: 'Country',
+              BottomNavigationBarItem(
+                icon: Icon(Icons.logo_dev),
+                label: 'Dreamers',
               ),
-            ),
-
-            // In the future, the input parameter will be the images to be displayed
-            const CarouselSliderManual(),
-
-            // I don't know how to add an indicator here
-            /*
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 200.0,
-                viewportFraction: 1,
+              BottomNavigationBarItem(
+                icon: Icon(Icons.textsms_outlined),
+                label: 'Menu 3',
               ),
-              items: [0, 1, 2].map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      //margin: EdgeInsets.symmetric(horizontal: 5.0),
-                      //decoration: BoxDecoration(color: Colors.amber),
-                      child: Image.network(
-                        images[i],
-                        fit: BoxFit.fill,
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-            */
-
-            // Widget adopted from pub.dev <percent_indicator 4.2.2>
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                children: <Widget>[
-                  const Text('Goal (%)'),
-                  const SizedBox(width: 5),
-                  LinearPercentIndicator(
-                    width: MediaQuery.of(context).size.width - 90,
-                    lineHeight: 20.0,
-                    animationDuration: 2500,
-                    percent: goalPercentage / 100,
-                    // Have to discuss how to represent, with digit on or off
-                    center: Text("$goalPercentage%"),
-                    barRadius: const Radius.circular(45),
-                    // Need change to color to theme color
-                    progressColor: const Color.fromARGB(255, 210, 155, 173),
-                  ),
-                ],
+              BottomNavigationBarItem(
+                icon: Icon(Icons.portrait),
+                label: 'Menu 4',
               ),
-            ),
-
-            // Why stack used?
-            Stack(
-              children: [
-                ListView(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: category.length,
-                        itemBuilder: (context, index) => GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = index;
-                            });
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(left: 18),
-                            padding: const EdgeInsets.symmetric(horizontal: 40),
-                            decoration: BoxDecoration(
-                              color: index == selectedIndex
-                                  ? Colors.deepOrangeAccent
-                                  : Colors.grey.shade400,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            child: Text(
-                              category[index],
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    /* In future, when each widgets corresponding to the button have
-                    different contents, if statement can be applied here */
-                    CategoryListView(index: selectedIndex),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                const SizedBox(
-                  width: 8,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                      fixedSize: const MaterialStatePropertyAll(
-                        Size.fromWidth(340),
-                      ),
-                      textStyle: const MaterialStatePropertyAll(TextStyle(
-                        fontSize: 20,
-                      )),
-                      backgroundColor: MaterialStateProperty.all(
-                        const Color.fromARGB(255, 210, 155, 173),
-                      )),
-                  child: const Text(
-                    'Donate Now',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-              ],
-            ),
-          ),
-        ));
+            ],
+          )),
+    );
   }
 }
