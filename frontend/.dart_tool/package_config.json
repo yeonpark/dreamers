@@ -14,6 +14,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "card_swiper",
+      "rootUri": "file:///C:/Users/mjypa/AppData/Local/Pub/Cache/hosted/pub.dev/card_swiper-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "carousel_slider",
       "rootUri": "file:///C:/Users/mjypa/AppData/Local/Pub/Cache/hosted/pub.dev/carousel_slider-4.2.1",
       "packageUri": "lib/",
@@ -182,7 +188,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-02-16T16:32:31.789780Z",
+  "generated": "2023-02-16T17:08:13.056300Z",
   "generator": "pub",
   "generatorVersion": "2.19.1"
 }

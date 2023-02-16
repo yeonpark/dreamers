@@ -18,7 +18,7 @@ packages:
     source: hosted
     version: "2.1.1"
   card_swiper:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: card_swiper
       sha256: "0c94c538f47be1dab52d018d4900a7046b4cb0700dc7f95b8628da89d1212b35"
@@ -233,9 +233,5 @@ packages:
     source: hosted
     version: "2.1.4"
 sdks:
-<<<<<<< HEAD
-  dart: ">=2.18.4 <3.0.0"
-=======
-  dart: ">=2.19.0 <4.0.0"
->>>>>>> f93de039f7b698e9082e81f2e6df677693b2a96a
+  dart: ">=2.19.0 <3.0.0"
   flutter: ">=2.12.0"
