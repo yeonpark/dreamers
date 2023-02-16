@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'popup_card.dart';
+import 'models.dart';
 
 class CategoryListView extends StatelessWidget {
   final int index;
@@ -11,22 +13,7 @@ class CategoryListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       if (index == 0) ...[
-        SizedBox(
-          height: 190,
-          child: ListView(
-            children: const [
-              Placeholder(
-                color: Colors.red,
-              ),
-              Placeholder(
-                color: Colors.red,
-              ),
-              Placeholder(
-                color: Colors.red,
-              ),
-            ],
-          ),
-        ),
+        const TodoCard(todo: Todo(id: "Hi", description: "test")),
       ] else if (index == 1) ...[
         SizedBox(
           height: 190,

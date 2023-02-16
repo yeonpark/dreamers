@@ -16,6 +16,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+
+      // We need to decide the ThemeData for the project
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromARGB(255, 236, 171, 193),
@@ -110,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             const Padding(
               padding: EdgeInsets.all(15),
+              // Widget in basic_info.dart to present the basic info about the item <Stateless>
               child: BasicInfo(
                 title: 'Title',
                 postdate: 'Posted Date',
@@ -146,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             */
 
+            // Widget adopted from pub.dev <percent_indicator 4.2.2>
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Row(
@@ -157,14 +161,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     lineHeight: 20.0,
                     animationDuration: 2500,
                     percent: goalPercentage / 100,
+                    // Have to discuss how to represent, with digit on or off
                     center: Text("$goalPercentage%"),
                     barRadius: const Radius.circular(45),
+                    // Need change to color to theme color
                     progressColor: const Color.fromARGB(255, 210, 155, 173),
                   ),
                 ],
               ),
             ),
 
+            // Why stack used?
             Stack(
               children: [
                 ListView(
