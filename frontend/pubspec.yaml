@@ -41,14 +41,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
-<<<<<<< HEAD
+  card_swiper: ^2.0.4
 
-=======
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
->>>>>>> f93de039f7b698e9082e81f2e6df677693b2a96a
 flutter:
   assets:
     - assets/images/
