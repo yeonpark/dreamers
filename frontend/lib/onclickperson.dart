@@ -4,7 +4,6 @@ import 'package:mock_airbnb/basic_info.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 //import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mock_airbnb/carousel_slider.dart';
-import 'package:mock_airbnb/grid.dart';
 
 void main() {
   runApp(const OnClickPerson());
@@ -156,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const Text('Goal (%)'),
                   const SizedBox(width: 5),
                   LinearPercentIndicator(
-                    width: MediaQuery.of(context).size.width * 0.78,
+                    width: MediaQuery.of(context).size.width,
                     lineHeight: 20.0,
                     animationDuration: 2500,
                     percent: goalPercentage / 100,

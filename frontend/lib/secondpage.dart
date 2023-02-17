@@ -157,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const Text('Goal (%)'),
                   const SizedBox(width: 5),
                   LinearPercentIndicator(
-                    width: MediaQuery.of(context).size.width * 0.75,
+                    width: MediaQuery.of(context).size.width,
                     lineHeight: 20.0,
                     animationDuration: 2500,
                     percent: goalPercentage / 100,
