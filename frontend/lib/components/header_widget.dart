@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/colors.dart';
+import '../pages/search_page.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({Key? key}) : super(key: key);
@@ -32,6 +33,10 @@ class HeaderWidget extends StatelessWidget {
               ),
               textAlign: TextAlign.left,
             ),
+            IconButton(
+                onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const SearchPage())),
+                icon: const Icon(Icons.search))
           ],
         )
       ]),
