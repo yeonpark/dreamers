@@ -23,12 +23,12 @@ class Flamingo {
 
   static const IconData logo =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData logo_circular =
+  static const IconData logoCircular =
       IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData logo_cute_black =
+  static const IconData logoCuteBlack =
       IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData logo_cute_white =
+  static const IconData logoCuteWhite =
       IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData logo_search =
+  static const IconData logoSearch =
       IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
