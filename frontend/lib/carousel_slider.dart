@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mock_airbnb/presentation/flamingo_icons.dart';
 
 class CarouselSliderManual extends StatefulWidget {
   const CarouselSliderManual({super.key});
