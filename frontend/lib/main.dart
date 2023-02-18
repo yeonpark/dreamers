@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mock_airbnb/secondpage.dart';
+import 'package:mock_airbnb/itempage.dart';
 import 'package:mock_airbnb/firstpage.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
   final screens = [
     FirstPage(),
-    SecondPage(),
+    ItemPage(),
     Center(
       child: Text(
         "where dreamers page should be",

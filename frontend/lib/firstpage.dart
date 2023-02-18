@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mock_airbnb/basic_info.dart';
 import 'package:mock_airbnb/categories.dart';
 import 'package:mock_airbnb/grid.dart';
 
@@ -55,7 +54,7 @@ class _MyAppState extends State<FirstPage> {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 //category bar
                 height: 70,
                 child: Padding(

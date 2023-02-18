@@ -1,5 +1,3 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 
@@ -19,15 +17,26 @@ class _CardSwiperState extends State<CardSwiper> {
 
   @override
   Widget build(BuildContext context) {
-    return Swiper(
-      itemBuilder: (context, index) {
-        return Image.network(
-          images[index],
-          fit: BoxFit.fill,
-        );
-      },
-      itemCount: 3,
-      control: SwiperControl(),
+    return Expanded(
+      child: Swiper(
+        indicatorLayout: PageIndicatorLayout.NONE,
+        pagination: SwiperPagination(
+            // builder: DotSwiperPaginationBuilder(
+            //   color: Colors.black26,
+            //   activeColor: Colors.deepOrangeAccent,
+            //   // size: 6.0,
+            //   // activeSize: 9.0,
+            // ),
+            ),
+        itemBuilder: (context, index) {
+          return Image.network(
+            images[index],
+            fit: BoxFit.fill,
+          );
+        },
+        itemCount: 3,
+        control: SwiperControl(),
+      ),
     );
   }
 }

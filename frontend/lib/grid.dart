@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mock_airbnb/onclickperson.dart';
-import 'package:mock_airbnb/basic_info.dart';
+import 'package:mock_airbnb/itempage.dart';
 
 class Grids extends StatefulWidget {
   final String image;
@@ -32,7 +31,7 @@ class _GridsState extends State<Grids> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => OnClickPerson(),
+              builder: (context) => ItemPage(),
             ),
           );
         },
@@ -107,11 +106,11 @@ class _GridsState extends State<Grids> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
