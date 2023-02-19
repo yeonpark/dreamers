@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// A class of cateories under the search bar.
+// Requires icon and name of categories
+
 class Categories extends StatefulWidget {
   final IconData icon;
   final String name;

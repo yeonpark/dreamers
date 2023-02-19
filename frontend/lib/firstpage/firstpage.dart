@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mock_airbnb/categories.dart';
-import 'package:mock_airbnb/grid.dart';
+import 'categories.dart';
+import 'grid.dart';
+
+/*
+This is item list page, set it as a mainpage just for test.
+Scaffold consisted of body only.
+Under body, it has search bar, cateogries, and listview.
+Listview is consisted of containers which is wrapped by GestureDetector,
+which ables clicking the containers to navigate to Yeon's itempage. 
+*/
 
 void main() {
   runApp(const FirstPage());

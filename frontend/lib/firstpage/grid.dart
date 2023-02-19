@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mock_airbnb/itempage.dart';
+import 'package:dreamers/itempage.dart';
+
+/*
+This is a class for conainers inside the listview of itemlist page.
+Requires image, field of study, name, nationality, brief sentences to introduce.
+*/
 
 class Grids extends StatefulWidget {
   final String image;

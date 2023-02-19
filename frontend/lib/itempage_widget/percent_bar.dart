@@ -34,7 +34,7 @@ class _PercentBarState extends State<PercentBar> {
             // Additional 57 for the goal Text and 5 pixel sized box
             // There are two ways, get the length of text and minus it or remove the text
             width: MediaQuery.of(context).size.width -
-                87, //-_key.currentContext.size.width,
+                93, //-_key.currentContext.size.width,
             lineHeight: 20.0,
             percent: widget.goalPercentage / 100,
             // Have to discuss how to represent, with digit on or off

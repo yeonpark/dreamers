@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mock_airbnb/itempage.dart';
-import 'package:mock_airbnb/firstpage.dart';
+import 'package:dreamers/itempage.dart';
+import 'package:dreamers/firstpage/firstpage.dart';
+import 'package:dreamers/successStory.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,16 +17,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
   final screens = [
+    /*
+    This list contains the screens to be displayed by different menus.
+    When user clicks second menu in bottom navigation bar for example,
+    currentIndex will change to 1 and body will display ItemPage which is
+    second element of the 'screens' list.
+     */
     FirstPage(),
     ItemPage(),
-    Center(
-      child: Text(
-        "where dreamers page should be",
-        style: TextStyle(
-          fontSize: 40,
-        ),
-      ),
-    ),
+    MainPage(),
     Center(
       child: Text(
         "where menu 3 page should be",
@@ -48,6 +48,14 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+          /*
+      This Scaffold is consisted only with
+      body and bottomNavigationBar.
+      Body displays the screens based on user's menu selection.
+      Default screen (when user first open this app) is first menu page.
+      BottomNavigationBar is for menu selection. If user clicks second menu,
+      currentIndex changes to 1, so body will display second page (Dart's zero-based indexing.
+      */
           body: screens[currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: currentIndex,

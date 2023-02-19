@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mock_airbnb/itempage_widget/basic_info.dart';
-import 'package:mock_airbnb/itempage_widget/card_swiper.dart';
-import 'package:mock_airbnb/itempage_widget/appbar.dart';
-import 'package:mock_airbnb/itempage_widget/donate_button.dart';
-import 'package:mock_airbnb/itempage_widget/percent_bar.dart';
-import 'package:mock_airbnb/itempage_widget/category_listview.dart';
+import 'package:dreamers/itempage_widget/basic_info.dart';
+import 'package:dreamers/itempage_widget/card_swiper.dart';
+import 'package:dreamers/itempage_widget/appbar.dart';
+import 'package:dreamers/itempage_widget/donate_button.dart';
+import 'package:dreamers/itempage_widget/percent_bar.dart';
+import 'package:dreamers/itempage_widget/category_listview.dart';
 
 class ItemPage extends StatefulWidget {
   const ItemPage({super.key});

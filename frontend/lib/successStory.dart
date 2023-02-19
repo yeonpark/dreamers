@@ -8,11 +8,11 @@ import 'constants/colors.dart';
 import 'test_data/success_info.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MainPage());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
