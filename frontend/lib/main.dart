@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dreamers/pages/itempage.dart';
-import 'package:dreamers/pages/firstpage.dart';
+import 'package:dreamers/pages/itemlist.dart';
 import 'package:dreamers/successStory.dart';
 //import '../test_data/success_info.dart';
 
@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
     currentIndex will change to 1 and body will display ItemPage which is
     second element of the 'screens' list.
      */
-    FirstPage(),
+    ItemList(),
     ItemPage(),
     MainPage(),
     Center(

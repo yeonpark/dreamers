@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:dreamers/itempage_widget/basic_info.dart';
 //import 'package:dreamers/itempage_widget/card_swiper.dart';
-import 'package:dreamers/itempage_widget/appbar.dart';
-import 'package:dreamers/itempage_widget/donate_button.dart';
-import 'package:dreamers/itempage_widget/percent_bar.dart';
 import 'package:dreamers/itempage_widget/category_listview.dart';
 import '../test_data/success_info.dart';
 import 'package:card_swiper/card_swiper.dart';
+import '../pages/search_page.dart';
+import '../constants/colors.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ItemPage extends StatefulWidget {
   //final SuccessInfo successInfo;
@@ -44,19 +44,54 @@ class _ItemPageState extends State<ItemPage> {
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: CommonAppBar(),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              )),
+
+          title: Center(
+            child: Text(
+              successInfo[0].name,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 28,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+
+          // Need the name of the icon used in the ui mock up
+          actions: <Widget>[
+            IconButton(
+              onPressed: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => const SearchPage())),
+              icon: const Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
         body: Column(
           children: [
             Flexible(
-              flex: 1,
+              flex: 3,
               child: Column(
                 children: [
-                  BasicInfo(
-                    title: 'Title',
-                    postdate: 'Posted Date',
-                    name: 'Name',
-                    country: 'Country',
-                  ),
+                  // BasicInfo(
+                  //   title: 'Title',
+                  //   postdate: 'Posted Date',
+                  //   name: 'Name',
+                  //   country: 'Country',
+                  // ),
 
                   // In the future, the input parameter will be the images to be displayed
                   //const CarouselSliderManual(),
@@ -66,15 +101,9 @@ class _ItemPageState extends State<ItemPage> {
             ),
             // Widget adopted from pub.dev <percent_indicator 4.2.2>
             Flexible(
-              flex: 1,
+              flex: 4,
               child: Column(
                 children: [
-                  Flexible(
-                    flex: 1,
-                    child: PercentBar(
-                      goalPercentage: 60,
-                    ),
-                  ),
                   // Need to use the varying selectedIndex value in CategoryListView
                   // To take this widget out but stuck with notifying the value change
                   // Made in below widget
@@ -98,7 +127,7 @@ class _ItemPageState extends State<ItemPage> {
                             padding: const EdgeInsets.symmetric(horizontal: 40),
                             decoration: BoxDecoration(
                               color: index == selectedIndex
-                                  ? Colors.deepOrangeAccent
+                                  ? primaryColor
                                   : Colors.grey.shade400,
                               borderRadius: BorderRadius.circular(40),
                             ),
@@ -122,7 +151,9 @@ class _ItemPageState extends State<ItemPage> {
                   ),
                   Flexible(
                     flex: 1,
-                    child: DonateButton(),
+                    child: PercentBar(
+                      goalPercentage: 90,
+                    ),
                   ),
                 ],
               ),
@@ -158,13 +189,12 @@ class CardSwiper extends StatelessWidget {
       child: Swiper(
         indicatorLayout: PageIndicatorLayout.NONE,
         pagination: SwiperPagination(
-            // builder: DotSwiperPaginationBuilder(
-            //   color: Colors.black26,
-            //   activeColor: Colors.deepOrangeAccent,
-            //   // size: 6.0,
-            //   // activeSize: 9.0,
-            // ),
-            ),
+          builder: DotSwiperPaginationBuilder(
+              color: dotColor,
+              activeColor: contentTextColor,
+              activeSize: 12,
+              space: 4),
+        ),
         itemBuilder: (context, index) {
           return Image.network(
             successInfo.images[index],
@@ -172,8 +202,74 @@ class CardSwiper extends StatelessWidget {
           );
         },
         itemCount: successInfo.images.length,
-        control: SwiperControl(),
+        //control: SwiperControl(),
       ),
+    );
+  }
+}
+
+class PercentBar extends StatefulWidget {
+  final double goalPercentage;
+
+  PercentBar({
+    super.key,
+    required this.goalPercentage,
+  });
+
+  @override
+  State<PercentBar> createState() => _PercentBarState();
+}
+
+class _PercentBarState extends State<PercentBar> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(15),
+          child: Material(
+            child: InkWell(
+              onTap: () {},
+              // highlightColor: navigationColor,
+              // overlayColor: MaterialStateProperty.all(
+              //   navigationColor,
+              // ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(45),
+              ),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width - 30,
+                height: 40,
+                child: LinearPercentIndicator(
+                  padding: EdgeInsets.all(0),
+                  backgroundColor: Colors.white,
+                  //fillColor: primaryColor,
+                  // Subtract 30 here because of padding of 15 on both left and right
+                  // Additional 57 for the goal Text and 5 pixel sized box
+                  // There are two ways, get the length of text and minus it or remove the text
+                  width: MediaQuery.of(context).size.width - 32,
+                  lineHeight: 35.0,
+                  percent: widget.goalPercentage / 100,
+                  // Have to discuss how to represent, with digit on or off
+                  center: Text(
+                    "Donate Now",
+                    style: GoogleFonts.ubuntu(
+                        color: titleTextColor,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 20),
+                  ),
+                  barRadius: const Radius.circular(45),
+                  // Need change to color to theme color
+                  progressColor: primaryColor,
+                ),
+              ),
+            ),
+          ),
+        ),
+        //const SizedBox(width: 5),
+      ],
     );
   }
 }
