@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:popup_card/styles.dart';
 
 import 'hero_dialogue_route.dart';
-import '../models.dart';
+import 'models.dart';
 
 /// {@template add_todo_button}
 /// Button to add a new [Todo].
@@ -46,6 +46,7 @@ class TodoCard extends StatelessWidget {
             left: 8,
             right: 8,
           ),
+          // Hero widget is used to animate the transition
           child: Hero(
             // createRectTween: (begin, end) {
             //   return CustomRectTween(begin: begin, end: end);

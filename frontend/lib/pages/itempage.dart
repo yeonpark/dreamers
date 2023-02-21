@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:dreamers/itempage_widget/basic_info.dart';
-import 'package:dreamers/itempage_widget/card_swiper.dart';
+//import 'package:dreamers/itempage_widget/card_swiper.dart';
 import 'package:dreamers/itempage_widget/appbar.dart';
 import 'package:dreamers/itempage_widget/donate_button.dart';
 import 'package:dreamers/itempage_widget/percent_bar.dart';
 import 'package:dreamers/itempage_widget/category_listview.dart';
+import '../test_data/success_info.dart';
+import 'package:card_swiper/card_swiper.dart';
 
 class ItemPage extends StatefulWidget {
-  const ItemPage({super.key});
+  //final SuccessInfo successInfo;
+  const ItemPage({
+    super.key,
+    //required this.successInfo,
+  });
 
   @override
   State<ItemPage> createState() => _ItemPageState();
@@ -17,7 +23,7 @@ class _ItemPageState extends State<ItemPage> {
   int index = 0;
   int selectedIndex = 0;
 
-  List category = ['Summary', 'Full Story', 'Person Detail'];
+  List category = ['Profile', 'Details', 'Vision'];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,7 +60,7 @@ class _ItemPageState extends State<ItemPage> {
 
                   // In the future, the input parameter will be the images to be displayed
                   //const CarouselSliderManual(),
-                  const CardSwiper(),
+                  CardSwiper(successInfo: successInfo[0]),
                 ],
               ),
             ),
@@ -133,6 +139,40 @@ class _ItemPageState extends State<ItemPage> {
         //     child:
         //   ),
         // ),
+      ),
+    );
+  }
+}
+
+class CardSwiper extends StatelessWidget {
+  final SuccessInfo successInfo;
+  const CardSwiper({
+    super.key,
+    required this.successInfo,
+  });
+
+  // List<String> images = widget.successInfo.images;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Swiper(
+        indicatorLayout: PageIndicatorLayout.NONE,
+        pagination: SwiperPagination(
+            // builder: DotSwiperPaginationBuilder(
+            //   color: Colors.black26,
+            //   activeColor: Colors.deepOrangeAccent,
+            //   // size: 6.0,
+            //   // activeSize: 9.0,
+            // ),
+            ),
+        itemBuilder: (context, index) {
+          return Image.network(
+            successInfo.images[index],
+            fit: BoxFit.fill,
+          );
+        },
+        itemCount: successInfo.images.length,
+        control: SwiperControl(),
       ),
     );
   }

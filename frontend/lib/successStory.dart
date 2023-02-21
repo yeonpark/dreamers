@@ -69,7 +69,7 @@ class CardSwiper extends StatelessWidget {
             child: Column(children: <Widget>[
               const HeaderWidget(),
               SizedBox(
-                height: 600,
+                height: 500,
                 child: Swiper(
                   itemCount: successInfo.length,
                   itemWidth: MediaQuery.of(context).size.width,

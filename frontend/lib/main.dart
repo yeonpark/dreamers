@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:dreamers/itempage.dart';
-import 'package:dreamers/firstpage/firstpage.dart';
+import 'package:dreamers/pages/itempage.dart';
+import 'package:dreamers/pages/firstpage.dart';
 import 'package:dreamers/successStory.dart';
+//import '../test_data/success_info.dart';
 
 void main() {
   runApp(const MyApp());

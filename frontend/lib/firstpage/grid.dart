@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dreamers/itempage.dart';
+import 'package:dreamers/pages/itempage.dart';
 
 /*
 This is a class for conainers inside the listview of itemlist page.

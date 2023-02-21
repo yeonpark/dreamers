@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'popup_card.dart';
-import '../models.dart';
+import 'models.dart';
 
 class CategoryListView extends StatelessWidget {
   final int index;
