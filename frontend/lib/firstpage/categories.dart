@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 class Categories extends StatefulWidget {
   final IconData icon;
   final String name;
+  final int position;
 
   Categories({
     super.key,
+    required this.position,
     required this.icon,
     required this.name,
   });
