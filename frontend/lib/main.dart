@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dreamers/pages/itempage.dart';
 import 'package:dreamers/pages/itemlist.dart';
 import 'package:dreamers/successStory.dart';
+import '../test_data/category_choose.dart';
 //import '../test_data/success_info.dart';
 
 void main() {
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
     MainPage(),
     Center(
       child: Text(
-        "where menu 3 page should be",
+        "where menu 4 should be",
         style: TextStyle(
           fontSize: 40,
         ),
