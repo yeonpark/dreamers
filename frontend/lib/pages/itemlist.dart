@@ -1,3 +1,4 @@
+import 'package:dreamers/pages/itempage.dart';
 import 'package:flutter/material.dart';
 import '../test_data/success_info.dart';
 /*
@@ -17,7 +18,7 @@ class ItemList extends StatefulWidget {
 
 class _ItemListState extends State<ItemList> {
   // This widget is the main page of the application.
-  var _category = 'last_minute';
+  static var _category = 'last_minute';
 
   @override
   Widget build(BuildContext context) {
@@ -111,28 +112,39 @@ class _ItemListState extends State<ItemList> {
                   itemBuilder: (ctx, index) {
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-                      child: Container(
-                        color: Colors.grey.withOpacity(0.2),
-                        height: 200,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  right: BorderSide(
-                                    width: 2,
-                                    color: Colors.white,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ItemPage(
+                                successInfo: successInfos[index],
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          color: Colors.grey.withOpacity(0.2),
+                          height: 200,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    right: BorderSide(
+                                      width: 2,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
+                                child: Image.asset(
+                                    successInfos[index].iconImage,
+                                    width: 195,
+                                    height: 195), //where image should be
                               ),
-                              child: Image.asset(successInfos[index].iconImage,
-                                  width: 195,
-                                  height: 195), //where image should be
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(6),
-                              child: Container(
+                              Padding(
+                                padding: const EdgeInsets.all(6),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -195,8 +207,8 @@ class _ItemListState extends State<ItemList> {
                                   ],
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -216,6 +228,7 @@ class CategoryButton extends StatelessWidget {
   final String selected;
   final String name;
   final VoidCallback onPressed;
+
   const CategoryButton({
     super.key,
     required this.onPressed,
@@ -228,7 +241,7 @@ class CategoryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
+      child: SizedBox(
         width: 80,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -237,13 +250,20 @@ class CategoryButton extends StatelessWidget {
                 width: 30,
                 height: 30,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
+                  border: Border.all(
+                    color: _ItemListState._category == selected
+                        ? Color(0xfffca5a5)
+                        : Colors.black,
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(
                   icon,
                   size: 25,
-                  color: onPressed == selected ? Colors.amber : Colors.black,
+                  // color: onPressed == selected ? Colors.amber : Colors.black,
+                  color: _ItemListState._category == selected
+                      ? Color(0xfffca5a5)
+                      : Colors.black,
                 )),
             SizedBox(height: 3),
             Text(

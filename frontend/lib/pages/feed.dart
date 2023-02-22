@@ -1,39 +1,20 @@
 import 'package:flutter/material.dart';
-import 'components/custon_bottom_navbar.dart';
-import 'components/header_widget.dart';
-import 'pages/details.dart';
+import '../components/custon_bottom_navbar.dart';
+import '../components/header_widget.dart';
+import 'details.dart';
 import 'package:card_swiper/card_swiper.dart';
-import 'components/custom_card.dart';
-import 'constants/colors.dart';
-import 'test_data/success_info.dart';
+import '../components/custom_card.dart';
+import '../constants/colors.dart';
+import '../test_data/success_info.dart';
 
-void main() {
-  runApp(const MainPage());
-}
-
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+class FeedPage extends StatefulWidget {
+  const FeedPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Homepage(),
-    );
-  }
+  State<FeedPage> createState() => _FeedPageState();
 }
 
-class Homepage extends StatefulWidget {
-  const Homepage({super.key});
-
-  @override
-  State<Homepage> createState() => _HomepageState();
-}
-
-class _HomepageState extends State<Homepage> {
+class _FeedPageState extends State<FeedPage> {
   // we must define initState and dispose for our class variables we've defined.
   @override
   void initState() {

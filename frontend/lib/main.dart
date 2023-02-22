@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:dreamers/pages/itempage.dart';
+import 'package:dreamers/pages/feed.dart';
 import 'package:dreamers/pages/itemlist.dart';
-import 'package:dreamers/successStory.dart';
-import '../test_data/category_choose.dart';
-//import '../test_data/success_info.dart';
 
+//import '../test_data/success_info.dart';
+//import '../test_data/success_info.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -26,8 +25,16 @@ class _MyAppState extends State<MyApp> {
     second element of the 'screens' list.
      */
     ItemList(),
-    ItemPage(),
-    MainPage(),
+    //ItemPage(successInfo: successInfo,),
+    FeedPage(),
+    Center(
+      child: Text(
+        "where menu 4 should be",
+        style: TextStyle(
+          fontSize: 40,
+        ),
+      ),
+    ),
     Center(
       child: Text(
         "where menu 4 should be",

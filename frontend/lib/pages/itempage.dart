@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 //import 'package:dreamers/itempage_widget/card_swiper.dart';
-import 'package:dreamers/itempage_widget/category_listview.dart';
 import '../test_data/success_info.dart';
 import 'package:card_swiper/card_swiper.dart';
 import '../pages/search_page.dart';
 import '../constants/colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../components/popup_card.dart';
 
 class ItemPage extends StatefulWidget {
-  //final SuccessInfo successInfo;
+  final SuccessInfo successInfo;
   const ItemPage({
     super.key,
-    //required this.successInfo,
+    required this.successInfo,
   });
 
   @override
@@ -24,6 +24,17 @@ class _ItemPageState extends State<ItemPage> {
   int selectedIndex = 0;
 
   List category = ['Profile', 'Details', 'Vision'];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -59,7 +70,7 @@ class _ItemPageState extends State<ItemPage> {
 
           title: Center(
             child: Text(
-              successInfo[0].name,
+              widget.successInfo.name,
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 28,
@@ -95,7 +106,7 @@ class _ItemPageState extends State<ItemPage> {
 
                   // In the future, the input parameter will be the images to be displayed
                   //const CarouselSliderManual(),
-                  CardSwiper(successInfo: successInfo[0]),
+                  CardSwiper(images: widget.successInfo.images),
                 ],
               ),
             ),
@@ -152,7 +163,7 @@ class _ItemPageState extends State<ItemPage> {
                   Flexible(
                     flex: 1,
                     child: PercentBar(
-                      goalPercentage: 90,
+                      goalPercentage: widget.successInfo.goalPercentage,
                     ),
                   ),
                 ],
@@ -176,10 +187,10 @@ class _ItemPageState extends State<ItemPage> {
 }
 
 class CardSwiper extends StatelessWidget {
-  final SuccessInfo successInfo;
+  final List<String> images;
   const CardSwiper({
     super.key,
-    required this.successInfo,
+    required this.images,
   });
 
   // List<String> images = widget.successInfo.images;
@@ -197,11 +208,11 @@ class CardSwiper extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return Image.network(
-            successInfo.images[index],
+            images[index],
             fit: BoxFit.fill,
           );
         },
-        itemCount: successInfo.images.length,
+        itemCount: images.length,
         //control: SwiperControl(),
       ),
     );
@@ -210,7 +221,6 @@ class CardSwiper extends StatelessWidget {
 
 class PercentBar extends StatefulWidget {
   final double goalPercentage;
-
   PercentBar({
     super.key,
     required this.goalPercentage,
@@ -221,6 +231,12 @@ class PercentBar extends StatefulWidget {
 }
 
 class _PercentBarState extends State<PercentBar> {
+  // double goalPercentage = 1;
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -252,6 +268,7 @@ class _PercentBarState extends State<PercentBar> {
                   width: MediaQuery.of(context).size.width - 32,
                   lineHeight: 35.0,
                   percent: widget.goalPercentage / 100,
+                  //percent: ((widget.goalPercentage != null) ? widget.goalPercentage : 0)/ 100,
                   // Have to discuss how to represent, with digit on or off
                   center: Text(
                     "Donate Now",
@@ -273,3 +290,84 @@ class _PercentBarState extends State<PercentBar> {
     );
   }
 }
+
+// class BasicInfo extends StatelessWidget {
+//   final String title;
+//   final String postdate;
+//   final String name;
+//   final String country;
+
+//   const BasicInfo({
+//     super.key,
+//     required this.title,
+//     required this.postdate,
+//     required this.name,
+//     required this.country,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(15),
+//       child: Column(
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             children: [
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     title,
+//                     style: const TextStyle(
+//                       color: Colors.black,
+//                       fontSize: 28,
+//                       fontWeight: FontWeight.w800,
+//                     ),
+//                   ),
+//                   const SizedBox(
+//                     height: 10,
+//                   ),
+//                   Row(
+//                     children: [
+//                       Text(
+//                         postdate,
+//                         style: TextStyle(
+//                           color: Colors.black.withOpacity(0.8),
+//                           fontSize: 18,
+//                         ),
+//                       ),
+//                       const SizedBox(
+//                         width: 10,
+//                       ),
+//                       Text(
+//                         name,
+//                         style: TextStyle(
+//                           color: Colors.black.withOpacity(0.8),
+//                           fontSize: 18,
+//                         ),
+//                       ),
+//                       const SizedBox(
+//                         width: 10,
+//                       ),
+//                       Text(
+//                         country,
+//                         style: TextStyle(
+//                           color: Colors.black.withOpacity(0.8),
+//                           fontSize: 18,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   // const SizedBox(
+//                   //   height: 20,
+//                   // ),
+//                 ],
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

@@ -8,6 +8,7 @@ class SuccessInfo {
   final String nationality;
   final String fieldOfStudy;
   final bool isWishlist;
+  double goalPercentage;
 
   SuccessInfo(
     this.position, {
@@ -19,6 +20,7 @@ class SuccessInfo {
     required this.nationality,
     required this.fieldOfStudy,
     required this.isWishlist,
+    required this.goalPercentage,
   });
 }
 
@@ -38,6 +40,7 @@ List<SuccessInfo> successInfo = [
     nationality: 'Malaysia',
     fieldOfStudy: 'Computer Science',
     isWishlist: true,
+    goalPercentage: 20,
   ),
   SuccessInfo(
     2,
@@ -55,6 +58,7 @@ List<SuccessInfo> successInfo = [
     nationality: 'China',
     fieldOfStudy: 'Computer Engineering',
     isWishlist: true,
+    goalPercentage: 30,
   ),
   SuccessInfo(
     3,
@@ -72,6 +76,7 @@ List<SuccessInfo> successInfo = [
     nationality: 'South Korea',
     fieldOfStudy: 'Computer Engineering',
     isWishlist: true,
+    goalPercentage: 40,
   ),
   SuccessInfo(
     4,
@@ -88,6 +93,7 @@ List<SuccessInfo> successInfo = [
     nationality: 'United Arab Emirates',
     fieldOfStudy: 'Computer Engineering',
     isWishlist: true,
+    goalPercentage: 50,
   ),
   SuccessInfo(
     5,
@@ -104,6 +110,7 @@ List<SuccessInfo> successInfo = [
     nationality: 'Netherlands',
     fieldOfStudy: 'EPL',
     isWishlist: false,
+    goalPercentage: 0,
   ),
   SuccessInfo(
     6,
@@ -120,6 +127,7 @@ List<SuccessInfo> successInfo = [
     nationality: 'Egypt',
     fieldOfStudy: 'EPL',
     isWishlist: false,
+    goalPercentage: 70,
   ),
   SuccessInfo(
     7,
@@ -136,6 +144,7 @@ List<SuccessInfo> successInfo = [
     nationality: 'United Kingdom',
     fieldOfStudy: 'EPL',
     isWishlist: false,
+    goalPercentage: 80,
   ),
   SuccessInfo(
     8,
@@ -152,5 +161,6 @@ List<SuccessInfo> successInfo = [
     nationality: 'Germany',
     fieldOfStudy: 'EPL',
     isWishlist: false,
+    goalPercentage: 100,
   ),
 ];
