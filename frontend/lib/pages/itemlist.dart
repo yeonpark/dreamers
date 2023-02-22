@@ -94,9 +94,8 @@ class _ItemListState extends State<ItemList> {
                     ),
                     CategoryButton(
                       icon: Icons.female_outlined,
-                      name: 'Female',
-                      onPressed: () =>
-                          setState(() => print('wishlist clicked')),
+                      name: 'Wish List',
+                      onPressed: () => setState(() => _category = 'wishlist'),
                       selected: 'wishlist',
                     ),
                   ],
@@ -110,6 +109,19 @@ class _ItemListState extends State<ItemList> {
                 child: ListView.builder(
                   itemCount: successInfos.length,
                   itemBuilder: (ctx, index) {
+                    var current = successInfos[index];
+                    var favorites = [];
+
+                    void toggleFavorite() {
+                      if (current.category.contains('wishlist')) {
+                        current.category.remove('wishlist');
+                        favorites.remove(current);
+                      } else {
+                        current.category.add('wishlist');
+                        favorites.add(current);
+                      }
+                    }
+
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
                       child: GestureDetector(
@@ -123,92 +135,115 @@ class _ItemListState extends State<ItemList> {
                             ),
                           );
                         },
-                        child: Container(
-                          color: Colors.grey.withOpacity(0.2),
-                          height: 200,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    right: BorderSide(
-                                      width: 2,
-                                      color: Colors.white,
+                        child: Stack(
+                          children: [
+                            Container(
+                              color: Colors.grey.withOpacity(0.2),
+                              height: 200,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        right: BorderSide(
+                                          width: 2,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Image.asset(
+                                        successInfos[index].iconImage,
+                                        width: 195,
+                                        height: 195), //where image should be
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(6),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        ConstrainedBox(
+                                          constraints:
+                                              BoxConstraints(maxWidth: 180),
+                                          child: Text(
+                                            successInfos[index].fieldOfStudy,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        ConstrainedBox(
+                                          constraints:
+                                              BoxConstraints(maxWidth: 180),
+                                          child: Text(successInfos[index].name,
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w700,
+                                              )),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        ConstrainedBox(
+                                          constraints:
+                                              BoxConstraints(maxWidth: 180),
+                                          child: Text(
+                                            successInfos[index].nationality,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 40,
+                                        ),
+                                        ConstrainedBox(
+                                          constraints:
+                                              BoxConstraints(maxWidth: 180),
+                                          child: Text(
+                                            successInfos[index].description,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 3,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                                child: Image.asset(
-                                    successInfos[index].iconImage,
-                                    width: 195,
-                                    height: 195), //where image should be
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(6),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    ConstrainedBox(
-                                      constraints:
-                                          BoxConstraints(maxWidth: 180),
-                                      child: Text(
-                                        successInfos[index].fieldOfStudy,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    ConstrainedBox(
-                                      constraints:
-                                          BoxConstraints(maxWidth: 180),
-                                      child: Text(successInfos[index].name,
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w700,
-                                          )),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    ConstrainedBox(
-                                      constraints:
-                                          BoxConstraints(maxWidth: 180),
-                                      child: Text(
-                                        successInfos[index].nationality,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                    ),
-                                    ConstrainedBox(
-                                      constraints:
-                                          BoxConstraints(maxWidth: 180),
-                                      child: Text(
-                                        successInfos[index].description,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                            ),
+                            Positioned(
+                              right: MediaQuery.of(context).size.width - 420,
+                              top: 10,
+                              child: InkWell(
+                                child: successInfos[index]
+                                        .category
+                                        .contains('wishlist')
+                                    ? Icon(Icons.favorite,
+                                        color: Color(0xfffca5a5))
+                                    : Icon(Icons.favorite_border,
+                                        color: Color(0xfffca5a5)),
+                                onTap: () => setState(
+                                  () {
+                                    toggleFavorite();
+                                  },
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     );
