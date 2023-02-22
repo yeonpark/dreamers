@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../components/custon_bottom_navbar.dart';
 import '../components/header_widget.dart';
 import 'details.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -41,16 +40,20 @@ class CardSwiper extends StatelessWidget {
       backgroundColor: gradientEndColor,
       body: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [gradientStartColor, gradientEndColor],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: const [0.1, 0.9])),
+            gradient: LinearGradient(
+                colors: [gradientStartColor, gradientEndColor],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: const [0.1, 0.9]),
+          ),
           child: SafeArea(
             child: Column(children: <Widget>[
-              const HeaderWidget(),
-              SizedBox(
-                height: 500,
+              Flexible(
+                flex: 1,
+                child: const HeaderWidget(),
+              ),
+              Flexible(
+                flex: 5,
                 child: Swiper(
                   itemCount: successInfo.length,
                   itemWidth: MediaQuery.of(context).size.width,
@@ -116,7 +119,7 @@ class CardSwiper extends StatelessWidget {
               )
             ]),
           )),
-      bottomNavigationBar: const CustomBottomNavbar(),
+      //bottomNavigationBar: const CustomBottomNavbar(),
     );
   }
 }

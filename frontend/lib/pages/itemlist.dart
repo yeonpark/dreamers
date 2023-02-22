@@ -31,227 +31,239 @@ class _ItemListState extends State<ItemList> {
 
     return MaterialApp(
       home: Scaffold(
-        body: Column(
-          children: [
-            SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          blurRadius: 7,
-                          blurStyle: BlurStyle.outer)
-                    ]),
-                child: Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: Row(
-                    children: [
-                      Icon(Icons.search, size: 20, color: Colors.red),
-                      SizedBox(width: 20),
-                      Text(
-                        'Find your dreamers',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
+        body: SafeArea(
+          child: Column(
+            children: [
+              Flexible(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  blurRadius: 7,
+                                  blurStyle: BlurStyle.outer)
+                            ]),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: Row(
+                            children: [
+                              Icon(Icons.search, size: 20, color: Colors.red),
+                              SizedBox(width: 20),
+                              Text(
+                                'Find your dreamers',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              //category bar
-              height: 70,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CategoryButton(
-                      icon: Icons.timer_sharp,
-                      name: 'Last Minute',
-                      onPressed: () =>
-                          setState(() => _category = 'last_minute'),
-                      selected: 'last_minute',
                     ),
-                    CategoryButton(
-                      icon: Icons.child_care,
-                      name: 'Primary/Secondary',
-                      onPressed: () => setState(() => _category = 'primary'),
-                      selected: 'primary',
-                    ),
-                    CategoryButton(
-                      icon: Icons.school_outlined,
-                      name: 'Teritary',
-                      onPressed: () => setState(() => _category = 'teritary'),
-                      selected: 'teritary',
-                    ),
-                    CategoryButton(
-                      icon: Icons.female_outlined,
-                      name: 'Wish List',
-                      onPressed: () => setState(() => _category = 'wishlist'),
-                      selected: 'wishlist',
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CategoryButton(
+                            icon: Icons.timer_sharp,
+                            name: 'Last Minute',
+                            onPressed: () =>
+                                setState(() => _category = 'last_minute'),
+                            selected: 'last_minute',
+                          ),
+                          CategoryButton(
+                            icon: Icons.child_care,
+                            name: 'Primary/Secondary',
+                            onPressed: () =>
+                                setState(() => _category = 'primary'),
+                            selected: 'primary',
+                          ),
+                          CategoryButton(
+                            icon: Icons.school_outlined,
+                            name: 'Teritary',
+                            onPressed: () =>
+                                setState(() => _category = 'teritary'),
+                            selected: 'teritary',
+                          ),
+                          CategoryButton(
+                            icon: Icons.female_outlined,
+                            name: 'Wish List',
+                            onPressed: () =>
+                                setState(() => _category = 'wishlist'),
+                            selected: 'wishlist',
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
-            MediaQuery.removePadding(
-              context: context,
-              removeTop: true,
-              child: Expanded(
-                child: ListView.builder(
-                  itemCount: successInfos.length,
-                  itemBuilder: (ctx, index) {
-                    var current = successInfos[index];
-                    var favorites = [];
+              Flexible(
+                flex: 5,
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: ListView.builder(
+                    itemCount: successInfos.length,
+                    itemBuilder: (ctx, index) {
+                      var current = successInfos[index];
+                      var favorites = [];
 
-                    void toggleFavorite() {
-                      if (current.category.contains('wishlist')) {
-                        current.category.remove('wishlist');
-                        favorites.remove(current);
-                      } else {
-                        current.category.add('wishlist');
-                        favorites.add(current);
+                      void toggleFavorite() {
+                        if (current.category.contains('wishlist')) {
+                          current.category.remove('wishlist');
+                          favorites.remove(current);
+                        } else {
+                          current.category.add('wishlist');
+                          favorites.add(current);
+                        }
                       }
-                    }
 
-                    return Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ItemPage(
-                                successInfo: successInfos[index],
-                              ),
-                            ),
-                          );
-                        },
-                        child: Stack(
-                          children: [
-                            Container(
-                              color: Colors.grey.withOpacity(0.2),
-                              height: 200,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        right: BorderSide(
-                                          width: 2,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    child: Image.asset(
-                                        successInfos[index].iconImage,
-                                        width: 195,
-                                        height: 195), //where image should be
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(6),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        ConstrainedBox(
-                                          constraints:
-                                              BoxConstraints(maxWidth: 180),
-                                          child: Text(
-                                            successInfos[index].fieldOfStudy,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        ConstrainedBox(
-                                          constraints:
-                                              BoxConstraints(maxWidth: 180),
-                                          child: Text(successInfos[index].name,
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w700,
-                                              )),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        ConstrainedBox(
-                                          constraints:
-                                              BoxConstraints(maxWidth: 180),
-                                          child: Text(
-                                            successInfos[index].nationality,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 40,
-                                        ),
-                                        ConstrainedBox(
-                                          constraints:
-                                              BoxConstraints(maxWidth: 180),
-                                          child: Text(
-                                            successInfos[index].description,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 3,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                              right: MediaQuery.of(context).size.width - 420,
-                              top: 10,
-                              child: InkWell(
-                                child: successInfos[index]
-                                        .category
-                                        .contains('wishlist')
-                                    ? Icon(Icons.favorite,
-                                        color: Color(0xfffca5a5))
-                                    : Icon(Icons.favorite_border,
-                                        color: Color(0xfffca5a5)),
-                                onTap: () => setState(
-                                  () {
-                                    toggleFavorite();
-                                  },
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ItemPage(
+                                  successInfo: successInfos[index],
                                 ),
                               ),
-                            ),
-                          ],
+                            );
+                          },
+                          child: Stack(
+                            children: [
+                              Container(
+                                color: Colors.grey.withOpacity(0.2),
+                                height: 200,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          right: BorderSide(
+                                            width: 2,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      child: Image.asset(
+                                          successInfos[index].iconImage,
+                                          width: 150,
+                                          height: 195), //where image should be
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(6),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          ConstrainedBox(
+                                            constraints:
+                                                BoxConstraints(maxWidth: 150),
+                                            child: Text(
+                                              successInfos[index].fieldOfStudy,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          ConstrainedBox(
+                                            constraints:
+                                                BoxConstraints(maxWidth: 180),
+                                            child: Text(
+                                                successInfos[index].name,
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                )),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          ConstrainedBox(
+                                            constraints:
+                                                BoxConstraints(maxWidth: 180),
+                                            child: Text(
+                                              successInfos[index].nationality,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          ConstrainedBox(
+                                            constraints:
+                                                BoxConstraints(maxWidth: 180),
+                                            child: Text(
+                                              successInfos[index].description,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 5,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  // right: MediaQuery.of(context).size.width - 700,
+                                  // top: 10,
+                                  child: InkWell(
+                                    child: successInfos[index]
+                                            .category
+                                            .contains('wishlist')
+                                        ? Icon(Icons.favorite,
+                                            color: Color(0xfffca5a5))
+                                        : Icon(Icons.favorite_border,
+                                            color: Color(0xfffca5a5)),
+                                    onTap: () => setState(
+                                      () {
+                                        toggleFavorite();
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
