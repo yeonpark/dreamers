@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../firstpage/categories.dart';
-import '../firstpage/grid.dart';
 import '../test_data/success_info.dart';
 /*
 This is item list page, set it as a mainpage just for test.
@@ -104,98 +102,106 @@ class _ItemListState extends State<ItemList> {
                 ),
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: successInfos.length,
-                itemBuilder: (ctx, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.grey.withOpacity(0.2),
-                      height: 200,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                right: BorderSide(
-                                  width: 2,
-                                  color: Colors.white,
+            MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: Expanded(
+                child: ListView.builder(
+                  itemCount: successInfos.length,
+                  itemBuilder: (ctx, index) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      child: Container(
+                        color: Colors.grey.withOpacity(0.2),
+                        height: 200,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  right: BorderSide(
+                                    width: 2,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              child: Image.asset(successInfos[index].iconImage,
+                                  width: 195,
+                                  height: 195), //where image should be
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(6),
+                              child: Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    ConstrainedBox(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 180),
+                                      child: Text(
+                                        successInfos[index].fieldOfStudy,
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    ConstrainedBox(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 180),
+                                      child: Text(successInfos[index].name,
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                          )),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    ConstrainedBox(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 180),
+                                      child: Text(
+                                        successInfos[index].nationality,
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 40,
+                                    ),
+                                    ConstrainedBox(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 180),
+                                      child: Text(
+                                        successInfos[index].description,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                            child: Image.asset(successInfos[index].iconImage,
-                                width: 195,
-                                height: 195), //where image should be
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(6),
-                            child: Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  ConstrainedBox(
-                                    constraints: BoxConstraints(maxWidth: 180),
-                                    child: Text(
-                                      successInfos[index].fieldOfStudy,
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  ConstrainedBox(
-                                    constraints: BoxConstraints(maxWidth: 180),
-                                    child: Text(successInfos[index].name,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w700,
-                                        )),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  ConstrainedBox(
-                                    constraints: BoxConstraints(maxWidth: 180),
-                                    child: Text(
-                                      successInfos[index].nationality,
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 40,
-                                  ),
-                                  ConstrainedBox(
-                                    constraints: BoxConstraints(maxWidth: 180),
-                                    child: Text(
-                                      successInfos[index].description,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ],
@@ -251,73 +257,3 @@ class CategoryButton extends StatelessWidget {
     );
   }
 }
-
-
-
-// Expanded(
-//               child: ListView(
-//                 padding: EdgeInsets.only(top: 0),
-//                 children: [
-//                   Grids(
-//                     image: 'assets/images/yeon.jpg',
-//                     field: 'Computer Science',
-//                     name: successInfo[0].name,
-//                     nationality: 'Malaysia',
-//                     sentences:
-//                         'Hi, i am Yeon Park from Malaysia. I like laksa.',
-//                   ),
-//                   Grids(
-//                     image: 'assets/images/sung.jpg',
-//                     field: 'Computer Engineering',
-//                     name: 'Sung Huh',
-//                     nationality: 'China',
-//                     sentences:
-//                         'Hi, I am Sung Huh from China. I like beijing duck.',
-//                   ),
-//                   Grids(
-//                     image: 'assets/images/hailey.jpg',
-//                     field: 'Electrical engineering and computer science',
-//                     name: 'Jeff Bezos',
-//                     nationality: 'United States of America',
-//                     sentences: 'Hi, I am Jeff Beozs form America.',
-//                   ),
-//                   Grids(
-//                     image: 'assets/images/joon.jpg',
-//                     field: 'Business Administration',
-//                     name: 'Warren Buffett',
-//                     nationality: 'United States of America',
-//                     sentences:
-//                         'Hi, I am Warren Buffet form America. I want to be rich.',
-//                   ),
-//                   Grids(
-//                     image: 'assets/images/virgil.jpeg',
-//                     field: 'Industrial Engineering',
-//                     name: 'Kim Bum-Soo',
-//                     nationality: 'Republic of Korea',
-//                     sentences: 'Hi, I am Bum-soo Kim form South Korea.',
-//                   ),
-//                   Grids(
-//                     image: 'assets/images/salah.jpg',
-//                     field: 'Industrial Engineering',
-//                     name: 'Kim Bum-Soo',
-//                     nationality: 'Republic of Korea',
-//                     sentences: 'Hi, I am Bum-soo Kim form South Korea.',
-//                   ),
-//                   Grids(
-//                     image: 'assets/images/gerrard.jpg',
-//                     field: 'Industrial Engineering',
-//                     name: 'Kim Bum-Soo',
-//                     nationality: 'Republic of Korea',
-//                     sentences: 'Hi, I am Bum-soo Kim form South Korea.',
-//                   ),
-//                   Grids(
-//                     image: 'assets/images/klopp.jpg',
-//                     field: 'Industrial Engineering',
-//                     name: 'Kim Bum-Soo',
-//                     nationality: 'Republic of Korea',
-//                     sentences: 'Hi, I am Bum-soo Kim form South Korea.',
-//                   ),
-//                 ],
-//               ),
-//             ),
-
