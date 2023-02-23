@@ -3,6 +3,7 @@ import 'package:dreamers/presentation/flamingo_icons.dart';
 import 'package:flutter/material.dart';
 import '../test_data/success_info.dart';
 import '../pages/search_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 /*
 This is item list page, set it as a mainpage just for test.
 Scaffold consisted of body only.
@@ -74,8 +75,8 @@ class _ItemListState extends State<ItemList> {
                                 SizedBox(width: 20),
                                 Text(
                                   'Find your dreamer...',
-                                  style: TextStyle(
-                                    fontSize: 12,
+                                  style: GoogleFonts.lato(
+                                    fontSize: 13,
                                     color: Colors.grey,
                                   ),
                                 ),
@@ -112,7 +113,7 @@ class _ItemListState extends State<ItemList> {
                             selected: 'teritary',
                           ),
                           CategoryButton(
-                            icon: Icons.female_outlined,
+                            icon: Icons.shopping_cart_outlined,
                             name: 'Wish List',
                             onPressed: () =>
                                 setState(() => _category = 'wishlist'),
@@ -190,12 +191,15 @@ class _ItemListState extends State<ItemList> {
                                             height: 10,
                                           ),
                                           ConstrainedBox(
-                                            constraints:
-                                                BoxConstraints(maxWidth: 300),
+                                            constraints: BoxConstraints(
+                                                maxWidth: MediaQuery.of(context)
+                                                        .size
+                                                        .width -
+                                                    200),
                                             child: Text(
                                               successInfos[index].fieldOfStudy,
-                                              style: TextStyle(
-                                                fontSize: 13,
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
@@ -204,25 +208,32 @@ class _ItemListState extends State<ItemList> {
                                             height: 5,
                                           ),
                                           ConstrainedBox(
-                                            constraints:
-                                                BoxConstraints(maxWidth: 300),
+                                            constraints: BoxConstraints(
+                                                maxWidth: MediaQuery.of(context)
+                                                        .size
+                                                        .width -
+                                                    200),
                                             child: Text(
-                                                successInfos[index].name,
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w700,
-                                                )),
+                                              successInfos[index].name,
+                                              style: GoogleFonts.lato(
+                                                fontSize: 23,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
                                           ),
                                           SizedBox(
                                             height: 5,
                                           ),
                                           ConstrainedBox(
-                                            constraints:
-                                                BoxConstraints(maxWidth: 300),
+                                            constraints: BoxConstraints(
+                                                maxWidth: MediaQuery.of(context)
+                                                        .size
+                                                        .width -
+                                                    200),
                                             child: Text(
                                               successInfos[index].nationality,
-                                              style: TextStyle(
-                                                fontSize: 13,
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
@@ -240,8 +251,8 @@ class _ItemListState extends State<ItemList> {
                                               successInfos[index].description,
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 4,
-                                              style: TextStyle(
-                                                fontSize: 13,
+                                              style: GoogleFonts.lato(
+                                                fontSize: 14,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
@@ -254,7 +265,7 @@ class _ItemListState extends State<ItemList> {
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                                    const EdgeInsets.fromLTRB(0, 12, 12, 0),
                                 child: Align(
                                   alignment: Alignment.topRight,
                                   // right: MediaQuery.of(context).size.width - 700,
@@ -336,8 +347,13 @@ class CategoryButton extends StatelessWidget {
             SizedBox(height: 3),
             Text(
               name,
-              style: TextStyle(
-                  letterSpacing: -1, fontSize: 10, color: Colors.grey),
+              style: GoogleFonts.lato(
+                fontSize: 11,
+                color: _ItemListState._category == selected
+                    ? Color(0xfffca5a5)
+                    : Colors.black,
+                letterSpacing: -1,
+              ),
             ),
           ],
         ),
