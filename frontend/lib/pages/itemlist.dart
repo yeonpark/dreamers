@@ -1,6 +1,8 @@
 import 'package:dreamers/pages/itempage.dart';
+import 'package:dreamers/presentation/flamingo_icons.dart';
 import 'package:flutter/material.dart';
 import '../test_data/success_info.dart';
+import '../pages/search_page.dart';
 /*
 This is item list page, set it as a mainpage just for test.
 Scaffold consisted of body only.
@@ -40,29 +42,45 @@ class _ItemListState extends State<ItemList> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(10),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  blurRadius: 7,
-                                  blurStyle: BlurStyle.outer)
-                            ]),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6),
-                          child: Row(
-                            children: [
-                              Icon(Icons.search, size: 20, color: Colors.red),
-                              SizedBox(width: 20),
-                              Text(
-                                'Find your dreamers',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
+                      child: GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const SearchPage(),
+                          ),
+                        ),
+                        child: Container(
+                          height: 45,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    blurRadius: 7,
+                                    blurStyle: BlurStyle.outer)
+                              ]),
+                          child: Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 10,
                                 ),
-                              ),
-                            ],
+                                Icon(
+                                  Flamingo.logoSearch,
+                                  size: 20,
+                                  color: Colors.red,
+                                ),
+                                SizedBox(width: 20),
+                                Text(
+                                  'Find your dreamer...',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
