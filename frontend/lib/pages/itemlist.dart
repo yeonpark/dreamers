@@ -173,7 +173,7 @@ class _ItemListState extends State<ItemList> {
                                           ),
                                           ConstrainedBox(
                                             constraints:
-                                                BoxConstraints(maxWidth: 150),
+                                                BoxConstraints(maxWidth: 300),
                                             child: Text(
                                               successInfos[index].fieldOfStudy,
                                               style: TextStyle(
@@ -187,7 +187,7 @@ class _ItemListState extends State<ItemList> {
                                           ),
                                           ConstrainedBox(
                                             constraints:
-                                                BoxConstraints(maxWidth: 180),
+                                                BoxConstraints(maxWidth: 300),
                                             child: Text(
                                                 successInfos[index].name,
                                                 style: TextStyle(
@@ -200,7 +200,7 @@ class _ItemListState extends State<ItemList> {
                                           ),
                                           ConstrainedBox(
                                             constraints:
-                                                BoxConstraints(maxWidth: 180),
+                                                BoxConstraints(maxWidth: 300),
                                             child: Text(
                                               successInfos[index].nationality,
                                               style: TextStyle(
@@ -213,12 +213,15 @@ class _ItemListState extends State<ItemList> {
                                             height: 20,
                                           ),
                                           ConstrainedBox(
-                                            constraints:
-                                                BoxConstraints(maxWidth: 180),
+                                            constraints: BoxConstraints(
+                                                maxWidth: MediaQuery.of(context)
+                                                        .size
+                                                        .width -
+                                                    200),
                                             child: Text(
                                               successInfos[index].description,
                                               overflow: TextOverflow.ellipsis,
-                                              maxLines: 5,
+                                              maxLines: 4,
                                               style: TextStyle(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w500,
