@@ -1,3 +1,5 @@
+// What is the use of this widget?
+
 import 'package:flutter/material.dart';
 
 class MyWidget extends StatefulWidget {

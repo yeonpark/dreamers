@@ -1,6 +1,7 @@
 // This file not used for now - Yeon
 
 import 'package:flutter/material.dart';
+import '../constants/colors.dart';
 
 class CategorySlider extends StatefulWidget {
   const CategorySlider({super.key});
@@ -37,7 +38,7 @@ class _CategorySliderState extends State<CategorySlider> {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   decoration: BoxDecoration(
                     color: index == selectedIndex
-                        ? Colors.deepOrangeAccent
+                        ? primaryColor
                         : Colors.grey.shade400,
                     borderRadius: BorderRadius.circular(40),
                   ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:dreamers/itempage.dart';
-import 'package:dreamers/firstpage/firstpage.dart';
-import 'package:dreamers/successStory.dart';
+import 'package:dreamers/pages/feed.dart';
+import 'package:dreamers/pages/itemlist.dart';
 
+//import '../test_data/success_info.dart';
+//import '../test_data/success_info.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -23,12 +24,20 @@ class _MyAppState extends State<MyApp> {
     currentIndex will change to 1 and body will display ItemPage which is
     second element of the 'screens' list.
      */
-    FirstPage(),
-    ItemPage(),
-    MainPage(),
+    ItemList(),
+    //ItemPage(successInfo: successInfo,),
+    FeedPage(),
     Center(
       child: Text(
-        "where menu 3 page should be",
+        "where menu 4 should be",
+        style: TextStyle(
+          fontSize: 40,
+        ),
+      ),
+    ),
+    Center(
+      child: Text(
+        "where menu 4 should be",
         style: TextStyle(
           fontSize: 40,
         ),

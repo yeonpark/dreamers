@@ -1,39 +1,19 @@
 import 'package:flutter/material.dart';
-import 'components/custon_bottom_navbar.dart';
-import 'components/header_widget.dart';
-import 'pages/details.dart';
+import '../components/header_widget.dart';
+import 'details.dart';
 import 'package:card_swiper/card_swiper.dart';
-import 'components/custom_card.dart';
-import 'constants/colors.dart';
-import 'test_data/success_info.dart';
+import '../components/custom_card.dart';
+import '../constants/colors.dart';
+import '../test_data/success_info.dart';
 
-void main() {
-  runApp(const MainPage());
-}
-
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+class FeedPage extends StatefulWidget {
+  const FeedPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Homepage(),
-    );
-  }
+  State<FeedPage> createState() => _FeedPageState();
 }
 
-class Homepage extends StatefulWidget {
-  const Homepage({super.key});
-
-  @override
-  State<Homepage> createState() => _HomepageState();
-}
-
-class _HomepageState extends State<Homepage> {
+class _FeedPageState extends State<FeedPage> {
   // we must define initState and dispose for our class variables we've defined.
   @override
   void initState() {
@@ -60,16 +40,20 @@ class CardSwiper extends StatelessWidget {
       backgroundColor: gradientEndColor,
       body: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [gradientStartColor, gradientEndColor],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: const [0.1, 0.9])),
+            gradient: LinearGradient(
+                colors: [gradientStartColor, gradientEndColor],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: const [0.1, 0.9]),
+          ),
           child: SafeArea(
             child: Column(children: <Widget>[
-              const HeaderWidget(),
-              SizedBox(
-                height: 600,
+              Flexible(
+                flex: 1,
+                child: const HeaderWidget(),
+              ),
+              Flexible(
+                flex: 5,
                 child: Swiper(
                   itemCount: successInfo.length,
                   itemWidth: MediaQuery.of(context).size.width,
@@ -135,6 +119,7 @@ class CardSwiper extends StatelessWidget {
               )
             ]),
           )),
+      //bottomNavigationBar: const CustomBottomNavbar(),
     );
   }
 }
