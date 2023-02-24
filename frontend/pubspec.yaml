@@ -35,6 +35,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.3
   ionicons: ^0.2.2
+  url_launcher: ^6.1.10
+  coinbase_wallet_sdk: ^1.0.6
+  walletconnect_dart: ^0.0.11
 
 dev_dependencies:
   flutter_test:

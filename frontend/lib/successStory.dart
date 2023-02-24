@@ -135,7 +135,6 @@ class CardSwiper extends StatelessWidget {
               )
             ]),
           )),
-      bottomNavigationBar: const CustomBottomNavbar(),
     );
   }
 }
