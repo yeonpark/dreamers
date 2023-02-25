@@ -1,3 +1,4 @@
+import 'package:dreamers/pages/connect_metamask_page.dart';
 import 'package:dreamers/pages/main_page.dart';
 import 'package:dreamers/pages/search_page.dart';
 import 'package:flutter/material.dart';
@@ -19,41 +20,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int currentIndex = 0;
-  final screens = [
-    /*
-    This list contains the screens to be displayed by different menus.
-    When user clicks second menu in bottom navigation bar for example,
-    currentIndex will change to 1 and body will display ItemPage which is
-    second element of the 'screens' list.
-     */
-    ItemList(),
-    //ItemPage(successInfo: successInfo,),
-    FeedPage(),
-    Center(
-      child: Text(
-        "where menu 4 should be",
-        style: TextStyle(
-          fontSize: 40,
-        ),
-      ),
-    ),
-    Center(
-      child: Text(
-        "where menu 4 should be",
-        style: TextStyle(
-          fontSize: 40,
-        ),
-      ),
-    ),
-    ConnectWalletPage()
-  ];
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(initialRoute: "/main", routes: {
+      // 원래 있던 코드 pages/main_page.dart로 갔습니다.
       "/main": (context) => const MainPage(),
-      "/connect-wallet": (context) => const ConnectWalletPage(),
+      "/connect-coinbase": (context) => const ConnectWalletPage(),
+      "/connect-metamask": (context) => const ConnectMetaMaskPage(),
       "/search": (context) => const SearchPage(),
       "/success-story": (context) => const FeedPage(),
     });

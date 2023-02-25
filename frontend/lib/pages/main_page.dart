@@ -1,3 +1,4 @@
+import 'package:dreamers/pages/connect_metamask_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamers/pages/feed.dart';
 import 'package:dreamers/pages/itemlist.dart';
@@ -40,7 +41,7 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     ),
-    ConnectWalletPage()
+    ConnectMetaMaskPage()
   ];
   // This widget is the root of your application.
   @override
