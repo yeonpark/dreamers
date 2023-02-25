@@ -41,89 +41,98 @@ class _ItemListState extends State<ItemList> {
                 flex: 1,
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: GestureDetector(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => const SearchPage(),
+                    Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => const SearchPage(),
+                            ),
                           ),
-                        ),
-                        child: Container(
-                          height: 45,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    blurRadius: 7,
-                                    blurStyle: BlurStyle.outer)
-                              ]),
-                          child: Padding(
-                            padding: const EdgeInsets.all(6),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Icon(
-                                  Flamingo.logoSearch,
-                                  size: 20,
-                                  color: Colors.red,
-                                ),
-                                SizedBox(width: 20),
-                                Text(
-                                  'Find your dreamer...',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 13,
-                                    color: Colors.grey,
+                          child: Container(
+                            height: 45,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      blurRadius: 7,
+                                      blurStyle: BlurStyle.outer)
+                                ]),
+                            child: Padding(
+                              padding: const EdgeInsets.all(6),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 10,
                                   ),
-                                ),
-                              ],
+                                  Icon(
+                                    Flamingo.logoSearch,
+                                    size: 20,
+                                    color: Colors.red,
+                                  ),
+                                  SizedBox(width: 20),
+                                  Text(
+                                    'Find your dreamer...',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 13,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CategoryButton(
-                            icon: Icons.timer_sharp,
-                            name: 'Last Minute',
-                            onPressed: () =>
-                                setState(() => _category = 'last_minute'),
-                            selected: 'last_minute',
-                          ),
-                          CategoryButton(
-                            icon: Icons.child_care,
-                            name: 'Primary/Secondary',
-                            onPressed: () =>
-                                setState(() => _category = 'primary'),
-                            selected: 'primary',
-                          ),
-                          CategoryButton(
-                            icon: Icons.school_outlined,
-                            name: 'Teritary',
-                            onPressed: () =>
-                                setState(() => _category = 'teritary'),
-                            selected: 'teritary',
-                          ),
-                          CategoryButton(
-                            icon: Icons.shopping_cart_outlined,
-                            name: 'Wish List',
-                            onPressed: () =>
-                                setState(() => _category = 'wishlist'),
-                            selected: 'wishlist',
-                          ),
-                        ],
+                    Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CategoryButton(
+                              icon: Icons.timer_sharp,
+                              name: 'Last Minute',
+                              onPressed: () =>
+                                  setState(() => _category = 'last_minute'),
+                              selected: 'last_minute',
+                            ),
+                            CategoryButton(
+                              icon: Icons.child_care,
+                              name: 'Primary/Secondary',
+                              onPressed: () =>
+                                  setState(() => _category = 'primary'),
+                              selected: 'primary',
+                            ),
+                            CategoryButton(
+                              icon: Icons.school_outlined,
+                              name: 'Teritary',
+                              onPressed: () =>
+                                  setState(() => _category = 'teritary'),
+                              selected: 'teritary',
+                            ),
+                            CategoryButton(
+                              icon: Icons.shopping_cart_outlined,
+                              name: 'Wish List',
+                              onPressed: () =>
+                                  setState(() => _category = 'wishlist'),
+                              selected: 'wishlist',
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 10,
               ),
               Flexible(
                 flex: 5,

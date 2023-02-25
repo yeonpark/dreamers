@@ -1,10 +1,10 @@
-import 'package:dreamers/pages/connect_metamask_page.dart';
 import 'package:dreamers/pages/main_page.dart';
+import 'package:dreamers/pages/notification.dart';
 import 'package:dreamers/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamers/pages/feed.dart';
-import 'package:dreamers/pages/itemlist.dart';
-import 'package:dreamers/pages/connect_coinbase_page.dart';
+import 'pages/connect_coinbase_page.dart';
+import 'pages/connect_metamask_page.dart';
 
 //import '../test_data/success_info.dart';
 //import '../test_data/success_info.dart';
@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
       "/connect-metamask": (context) => const ConnectMetamaskPage(),
       "/search": (context) => const SearchPage(),
       "/success-story": (context) => const FeedPage(),
+      "/notification": (context) => const NotificationPage(),
     });
   }
 }

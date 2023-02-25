@@ -1,8 +1,8 @@
-import 'package:dreamers/pages/connect_metamask_page.dart';
+import 'package:dreamers/pages/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamers/pages/feed.dart';
 import 'package:dreamers/pages/itemlist.dart';
-import 'package:dreamers/pages/connect_coinbase_page.dart';
+import 'connect_metamask_page.dart';
 
 //import '../test_data/success_info.dart';
 //import '../test_data/success_info.dart';
@@ -33,14 +33,16 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     ),
-    Center(
-      child: Text(
-        "where menu 4 should be",
-        style: TextStyle(
-          fontSize: 40,
-        ),
-      ),
-    ),
+
+    NotificationPage(),
+    // Center(
+    //   child: Text(
+    //     "where menu 4 should be",
+    //     style: TextStyle(
+    //       fontSize: 40,
+    //     ),
+    //   ),
+    // ),
     ConnectMetamaskPage()
   ];
   // This widget is the root of your application.
@@ -57,6 +59,8 @@ class _MainPageState extends State<MainPage> {
       currentIndex changes to 1, so body will display second page (Dart's zero-based indexing.
       */
           body: screens[currentIndex],
+          // https://docs.flutter.dev/cookbook/navigation/named-routes
+          // Need to change navigation to above method for back buttons to work
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: currentIndex,
             onTap: (index) => setState(() => currentIndex = index),
