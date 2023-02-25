@@ -41,7 +41,7 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     ),
-    ConnectMetaMaskPage()
+    ConnectMetamaskPage()
   ];
   // This widget is the root of your application.
   @override

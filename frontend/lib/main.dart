@@ -23,11 +23,11 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(initialRoute: "/main", routes: {
+    return MaterialApp(initialRoute: "/", routes: {
       // 원래 있던 코드 pages/main_page.dart로 갔습니다.
-      "/main": (context) => const MainPage(),
-      "/connect-coinbase": (context) => const ConnectWalletPage(),
-      "/connect-metamask": (context) => const ConnectMetaMaskPage(),
+      "/": (context) => const MainPage(),
+      "/connect-coinbase": (context) => const ConnectCoinbasePage(),
+      "/connect-metamask": (context) => const ConnectMetamaskPage(),
       "/search": (context) => const SearchPage(),
       "/success-story": (context) => const FeedPage(),
     });

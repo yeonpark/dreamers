@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:walletconnect_dart/walletconnect_dart.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class ConnectMetaMaskPage extends StatefulWidget {
-  const ConnectMetaMaskPage({super.key});
+class ConnectMetamaskPage extends StatefulWidget {
+  const ConnectMetamaskPage({super.key});
 
   @override
-  State<ConnectMetaMaskPage> createState() => _ConnectMetaMaskPageState();
+  State<ConnectMetamaskPage> createState() => _ConnectMetamaskPageState();
 }
 
-class _ConnectMetaMaskPageState extends State<ConnectMetaMaskPage> {
+class _ConnectMetamaskPageState extends State<ConnectMetamaskPage> {
   var connector = WalletConnect(
       bridge: 'https://bridge.walletconnect.org',
       clientMeta: const PeerMeta(
@@ -41,21 +41,29 @@ class _ConnectMetaMaskPageState extends State<ConnectMetaMaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Connect to Metamask'),
-        ),
-        body: SingleChildScrollView(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Image.asset(
-            'assets/images/buffett.jpeg',
-            fit: BoxFit.fitHeight,
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Connect to Metamask'),
           ),
-          ElevatedButton(
-            onPressed: () => loginUsingMetaMask(context),
-            child: const Text("Connect with Metamask"),
-          )
-        ])));
+          body: SingleChildScrollView(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                Image.asset(
+                  'assets/images/buffett.jpeg',
+                  fit: BoxFit.fitHeight,
+                ),
+                ElevatedButton(
+                  onPressed: () => loginUsingMetaMask(context),
+                  child: const Text("Connect with Metamask"),
+                ),
+                ElevatedButton(
+                  onPressed: () =>
+                      {Navigator.pushNamed(context, "/connect-coinbase")},
+                  child: const Text("Connect with Coinbase"),
+                )
+              ]))),
+    );
   }
 }

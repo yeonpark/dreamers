@@ -1,18 +1,17 @@
-
 import 'package:coinbase_wallet_sdk/configuration.dart';
 import 'package:coinbase_wallet_sdk/eth_web3_rpc.dart';
 import 'package:coinbase_wallet_sdk/request.dart';
 import 'package:flutter/material.dart';
 import 'package:coinbase_wallet_sdk/coinbase_wallet_sdk.dart';
 
-class ConnectWalletPage extends StatefulWidget {
-  const ConnectWalletPage({super.key});
+class ConnectCoinbasePage extends StatefulWidget {
+  const ConnectCoinbasePage({super.key});
 
   @override
-  State<ConnectWalletPage> createState() => _ConnectWalletPageState();
+  State<ConnectCoinbasePage> createState() => _ConnectCoinbasePageState();
 }
 
-class _ConnectWalletPageState extends State<ConnectWalletPage> {
+class _ConnectCoinbasePageState extends State<ConnectCoinbasePage> {
   String _address = "";
   String _signed = "";
   String _sessionCleared = "";
