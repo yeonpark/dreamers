@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import '../components/header_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants/colors.dart';
+import '../test_data/success_info.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
@@ -197,45 +198,123 @@ class NotificationBox extends StatefulWidget {
 }
 
 class _NotificationBoxState extends State<NotificationBox> {
+  static var _category = 'last_minute';
+
   @override
   Widget build(BuildContext context) {
+    final successInfos = successInfo
+        .where(
+          (successInfos) =>
+              successInfos.category.any((category) => category == _category),
+        )
+        .toList();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        children: [
-          Flexible(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  widget.duration,
-                  style: GoogleFonts.ubuntu(
-                    color: titleTextColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
+      child: Builder(builder: (context) {
+        return Column(
+          children: [
+            Flexible(
+              flex: 1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.duration,
+                    style: GoogleFonts.ubuntu(
+                      color: titleTextColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Flexible(
-            flex: 4,
-            child: Row(
-              children: [
-                Icon(
-                  Icons.circle,
-                  size: 10,
+            Flexible(
+              flex: 4,
+              child: Container(
+                //margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  //color: Colors.orange,
+                  border: Border.all(
+                      color: neutralColor, // Set border color
+                      width: 3.0), // Set border width
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10.0)), // Set rounded corner radius
+                  // Make rounded corner of border
                 ),
-              ],
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      size: 10,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width - 100),
+                      child: Text(
+                        successInfos[index].description,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 4,
+                        style: GoogleFonts.lato(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-          Flexible(
-            flex: 4,
-            child: Placeholder(),
-          ),
-        ],
-      ),
+            SizedBox(height: 5),
+            Flexible(
+              flex: 4,
+              child: Container(
+                //margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  //color: Colors.orange,
+                  border: Border.all(
+                      color: neutralColor, // Set border color
+                      width: 3.0), // Set border width
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10.0)), // Set rounded corner radius
+                  // Make rounded corner of border
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      size: 10,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width - 100),
+                      child: Text(
+                        successInfos[index].description,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 4,
+                        style: GoogleFonts.lato(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }
