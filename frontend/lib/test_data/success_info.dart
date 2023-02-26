@@ -8,6 +8,7 @@ class SuccessInfo {
   final String nationality;
   final String fieldOfStudy;
   final bool isWishlist;
+  bool read;
   double goalPercentage;
 
   SuccessInfo(
@@ -21,6 +22,7 @@ class SuccessInfo {
     required this.fieldOfStudy,
     required this.isWishlist,
     required this.goalPercentage,
+    required this.read,
   });
 }
 
@@ -41,6 +43,7 @@ List<SuccessInfo> successInfo = [
     fieldOfStudy: 'Computer Science',
     isWishlist: true,
     goalPercentage: 20,
+    read: false,
   ),
   SuccessInfo(
     2,
@@ -54,11 +57,12 @@ List<SuccessInfo> successInfo = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Venus_from_Mariner_10.jpg/640px-Venus_from_Mariner_10.jpg',
       'https://earthhow.com/wp-content/uploads/2018/08/Venus-850x850.jpg'
     ],
-    category: ['primary'],
+    category: ['last_minute', 'primary'],
     nationality: 'China',
     fieldOfStudy: 'Computer Engineering',
     isWishlist: true,
     goalPercentage: 30,
+    read: false,
   ),
   SuccessInfo(
     3,
@@ -77,6 +81,7 @@ List<SuccessInfo> successInfo = [
     fieldOfStudy: 'Computer Engineering',
     isWishlist: true,
     goalPercentage: 40,
+    read: false,
   ),
   SuccessInfo(
     4,
@@ -94,6 +99,7 @@ List<SuccessInfo> successInfo = [
     fieldOfStudy: 'Computer Engineering',
     isWishlist: true,
     goalPercentage: 50,
+    read: false,
   ),
   SuccessInfo(
     5,
@@ -106,11 +112,12 @@ List<SuccessInfo> successInfo = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/640px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg',
       'https://earthhow.com/wp-content/uploads/2018/08/Jupiter-850x850.jpg'
     ],
-    category: ['primary'],
+    category: ['last_minute', 'primary'],
     nationality: 'Netherlands',
     fieldOfStudy: 'EPL',
     isWishlist: false,
     goalPercentage: 0,
+    read: false,
   ),
   SuccessInfo(
     6,
@@ -128,6 +135,7 @@ List<SuccessInfo> successInfo = [
     fieldOfStudy: 'EPL',
     isWishlist: false,
     goalPercentage: 70,
+    read: false,
   ),
   SuccessInfo(
     7,
@@ -145,6 +153,7 @@ List<SuccessInfo> successInfo = [
     fieldOfStudy: 'EPL',
     isWishlist: false,
     goalPercentage: 80,
+    read: false,
   ),
   SuccessInfo(
     8,
@@ -157,10 +166,11 @@ List<SuccessInfo> successInfo = [
       'https://earthsky.org/upl/2021/09/Earth-Neptune-comparison.jpg',
       'https://www.astronomytrek.com/wp-content/uploads/2013/07/neptune-678x381.jpg'
     ],
-    category: ['primary'],
+    category: ['last_minute', 'primary'],
     nationality: 'Germany',
     fieldOfStudy: 'EPL',
     isWishlist: false,
     goalPercentage: 100,
+    read: false,
   ),
 ];

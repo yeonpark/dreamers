@@ -12,8 +12,8 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
-  int noOfNotifications = 0;
-
+  //int noOfNotifications = _NotificationBoxState.successInfos.length;
+  //final successInfos = successInfo;
   @override
   void initState() {
     super.initState();
@@ -22,6 +22,13 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void markAllRead() {
+    _NotificationBoxState.noOfNotifications = 0;
+    _NotificationBoxState.successInfos = _NotificationBoxState.successInfos
+        .where((successInfos) => successInfos.read = true)
+        .toList();
   }
 
   @override
@@ -74,7 +81,13 @@ class _NotificationPageState extends State<NotificationPage> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(
+                                        () {
+                                          markAllRead();
+                                        },
+                                      );
+                                    },
                                     style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
@@ -105,47 +118,6 @@ class _NotificationPageState extends State<NotificationPage> {
                                 ],
                               ),
                             ),
-                            Flexible(
-                              flex: 1,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                //crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'You have ',
-                                      style: GoogleFonts.ubuntu(
-                                        color: titleTextColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                          text:
-                                              '$noOfNotifications notifications',
-                                          style: GoogleFonts.ubuntu(
-                                            color: primaryColor,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: ' today',
-                                          style: GoogleFonts.ubuntu(
-                                            color: titleTextColor,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  // Text(
-                                  //   'You have $no_notifications notifications today'
-                                  // ),
-                                ],
-                              ),
-                            ),
                           ],
                         ),
                       )
@@ -161,20 +133,23 @@ class _NotificationPageState extends State<NotificationPage> {
                       flex: 1,
                       child: NotificationBox(
                         duration: 'Today',
+                        category: 'last_minute',
                       ),
                     ),
-                    Flexible(
-                      flex: 1,
-                      child: NotificationBox(
-                        duration: 'This Week',
-                      ),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: NotificationBox(
-                        duration: 'Last Week',
-                      ),
-                    ),
+                    // Flexible(
+                    //   flex: 1,
+                    //   child: NotificationBox(
+                    //     duration: 'This Week',
+                    //     category: 'primary',
+                    //   ),
+                    // ),
+                    //   Flexible(
+                    //   flex: 1,
+                    //   child: NotificationBox(
+                    //     duration: 'Last Week',
+                    //     category: 'teritary',
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -188,9 +163,11 @@ class _NotificationPageState extends State<NotificationPage> {
 
 class NotificationBox extends StatefulWidget {
   final String duration;
+  final String category;
   const NotificationBox({
     super.key,
     required this.duration,
+    required this.category,
   });
 
   @override
@@ -198,118 +175,143 @@ class NotificationBox extends StatefulWidget {
 }
 
 class _NotificationBoxState extends State<NotificationBox> {
-  static var _category = 'last_minute';
+  //static const _category = 'last_minute';
 
+  // can't place this value inside the build function as
+  // when setstate is called, it reruns the entire build function
+  static List<SuccessInfo> successInfos = successInfo;
+  static int noOfNotifications = successInfos.length;
   @override
   Widget build(BuildContext context) {
-    final successInfos = successInfo
-        .where(
-          (successInfos) =>
-              successInfos.category.any((category) => category == _category),
-        )
-        .toList();
+    // final successInfos = successInfo
+    //     .where(
+    //       (successInfos) => successInfos.category
+    //           .any((category) => category == widget.category),
+    //     )
+    //     .toList();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Builder(builder: (context) {
         return Column(
           children: [
-            Flexible(
-              flex: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.duration,
+            // Flexible(
+            //   flex: 1,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         widget.duration,
+            //         style: GoogleFonts.ubuntu(
+            //           color: titleTextColor,
+            //           fontSize: 16,
+            //           fontWeight: FontWeight.w400,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              //crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: 'You have ',
                     style: GoogleFonts.ubuntu(
                       color: titleTextColor,
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '$noOfNotifications notifications',
+                        style: GoogleFonts.ubuntu(
+                          color: primaryColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' today',
+                        style: GoogleFonts.ubuntu(
+                          color: titleTextColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Flexible(
-              flex: 4,
-              child: Container(
-                //margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(10),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  //color: Colors.orange,
-                  border: Border.all(
-                      color: neutralColor, // Set border color
-                      width: 3.0), // Set border width
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(10.0)), // Set rounded corner radius
-                  // Make rounded corner of border
                 ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.circle,
-                      size: 10,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width - 100),
-                      child: Text(
-                        successInfos[index].description,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 4,
-                        style: GoogleFonts.lato(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                // Text(
+                //   'You have $no_notifications notifications today'
+                // ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: successInfos.length,
+                itemBuilder: (context, index) {
+                  void markAsRead() {
+                    successInfos[index].read = true;
+                    --noOfNotifications;
+                  }
+
+                  return GestureDetector(
+                    onTap: () => setState(() {
+                      markAsRead();
+                    }),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Container(
+                        //margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(10),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          //color: Colors.orange,
+                          border: Border.all(
+                              color: neutralColor, // Set border color
+                              width: 3.0), // Set border width
+                          borderRadius: BorderRadius.all(Radius.circular(
+                              10.0)), // Set rounded corner radius
+                          // Make rounded corner of border
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.circle,
+                              size: 10,
+                              color: successInfos[index].read
+                                  ? Colors.white
+                                  : primaryColor,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            ConstrainedBox(
+                              constraints: BoxConstraints(
+                                  maxWidth:
+                                      MediaQuery.of(context).size.width - 100),
+                              child: Text(
+                                //"This is test data" * 10,
+                                successInfos[index].description,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 4,
+                                style: GoogleFonts.lato(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 5),
-            Flexible(
-              flex: 4,
-              child: Container(
-                //margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(10),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  //color: Colors.orange,
-                  border: Border.all(
-                      color: neutralColor, // Set border color
-                      width: 3.0), // Set border width
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(10.0)), // Set rounded corner radius
-                  // Make rounded corner of border
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.circle,
-                      size: 10,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width - 100),
-                      child: Text(
-                        successInfos[index].description,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 4,
-                        style: GoogleFonts.lato(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
           ],
