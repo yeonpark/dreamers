@@ -37,10 +37,9 @@ class _CategorySliderState extends State<CategorySlider> {
                   margin: const EdgeInsets.only(left: 18),
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   decoration: BoxDecoration(
-                    color: index == selectedIndex
-                        ? primaryColor
-                        : Colors.grey.shade400,
-                    borderRadius: BorderRadius.circular(40),
+                    color:
+                        index == selectedIndex ? primaryColor : navigationColor,
+                    // borderRadius: BorderRadius.circular(40),
                   ),
                   child: Text(
                     category[index],

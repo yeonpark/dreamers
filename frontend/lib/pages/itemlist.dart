@@ -16,13 +16,29 @@ class ItemList extends StatefulWidget {
   const ItemList({super.key});
 
   @override
-  State<ItemList> createState() => _ItemListState();
+  State<ItemList> createState() => ItemListState();
 }
 
-class _ItemListState extends State<ItemList> {
+class ItemListState extends State<ItemList> {
   // This widget is the main page of the application.
   static var _category = 'last_minute';
 
+  // _updateCategory(SuccessInfo current) {
+  //   setState(() {
+  //     //toggleFavorite();
+  //   });
+  // }
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  // GlobalKey<ItemPageState> _keyItemPage = GlobalKey();
   @override
   Widget build(BuildContext context) {
     final successInfos = successInfo
@@ -163,10 +179,13 @@ class _ItemListState extends State<ItemList> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ItemPage(
-                                  successInfo: successInfos[index],
+                                  successInfo: current, //successInfos[index],
+                                  parentAction: toggleFavorite,
                                 ),
                               ),
-                            );
+                            ).then((value) {
+                              setState(() {});
+                            });
                           },
                           child: Stack(
                             children: [
@@ -339,7 +358,7 @@ class CategoryButton extends StatelessWidget {
                 height: 30,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: _ItemListState._category == selected
+                    color: ItemListState._category == selected
                         ? Color(0xfffca5a5)
                         : Colors.black,
                   ),
@@ -349,7 +368,7 @@ class CategoryButton extends StatelessWidget {
                   icon,
                   size: 25,
                   // color: onPressed == selected ? Colors.amber : Colors.black,
-                  color: _ItemListState._category == selected
+                  color: ItemListState._category == selected
                       ? Color(0xfffca5a5)
                       : Colors.black,
                 )),
@@ -358,7 +377,7 @@ class CategoryButton extends StatelessWidget {
               name,
               style: GoogleFonts.lato(
                 fontSize: 11,
-                color: _ItemListState._category == selected
+                color: ItemListState._category == selected
                     ? Color(0xfffca5a5)
                     : Colors.black,
                 letterSpacing: -1,

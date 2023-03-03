@@ -7,11 +7,14 @@ import '../constants/colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/popup_card.dart';
+//import 'itemlist.dart';
 
 class ItemPage extends StatefulWidget {
   final SuccessInfo successInfo;
+  final void Function() parentAction;
   const ItemPage({
     super.key,
+    required this.parentAction,
     required this.successInfo,
   });
 
@@ -24,6 +27,13 @@ class _ItemPageState extends State<ItemPage> {
   int selectedIndex = 0;
 
   List category = ['Profile', 'Details', 'Vision'];
+
+  //final GlobalKey<ItemListState> _keyParent = GlobalKey();
+  // void updateLike() {
+  //   setState(() {
+  //     return widget.parentAction();
+  //   });
+  // }
 
   @override
   void initState() {
@@ -55,123 +65,173 @@ class _ItemPageState extends State<ItemPage> {
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
-
-          title: Center(
-            child: Text(
-              widget.successInfo.name,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 28,
-                fontWeight: FontWeight.w800,
+        body: SafeArea(
+          child: Column(
+            children: [
+              Flexible(
+                flex: 1,
+                child: Row(
+                  //crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        widget.successInfo.name,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (_) => const SearchPage())),
+                      icon: const Icon(
+                        Icons.search,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
+              Flexible(
+                flex: 4,
+                child: Stack(
+                  children: [
+                    // BasicInfo(
+                    //   title: 'Title',
+                    //   postdate: 'Posted Date',
+                    //   name: 'Name',
+                    //   country: 'Country',
+                    // ),
 
-          // Need the name of the icon used in the ui mock up
-          actions: <Widget>[
-            IconButton(
-              onPressed: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const SearchPage())),
-              icon: const Icon(
-                Icons.search,
-                color: Colors.black,
+                    // In the future, the input parameter will be the images to be displayed
+                    //const CarouselSliderManual(),
+                    CardSwiper(images: widget.successInfo.images),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 12, 12, 0),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        // right: MediaQuery.of(context).size.width - 700,
+                        // top: 10,
+                        child: InkWell(
+                          child: widget.successInfo.category
+                                  .contains('wishlist')
+                              ? Icon(Icons.favorite, color: Color(0xfffca5a5))
+                              : Icon(Icons.favorite_border,
+                                  color: Color(0xfffca5a5)),
+                          onTap: () => setState(
+                            () {
+                              widget.parentAction();
+                              //if (widget.successInfo) {
+                              //_keyParent.currentState.toggleFavorite();
+                              //}
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-        body: Column(
-          children: [
-            Flexible(
-              flex: 3,
-              child: Column(
-                children: [
-                  // BasicInfo(
-                  //   title: 'Title',
-                  //   postdate: 'Posted Date',
-                  //   name: 'Name',
-                  //   country: 'Country',
-                  // ),
-
-                  // In the future, the input parameter will be the images to be displayed
-                  //const CarouselSliderManual(),
-                  CardSwiper(images: widget.successInfo.images),
-                ],
-              ),
-            ),
-            // Widget adopted from pub.dev <percent_indicator 4.2.2>
-            Flexible(
-              flex: 4,
-              child: Column(
-                children: [
-                  // Need to use the varying selectedIndex value in CategoryListView
-                  // To take this widget out but stuck with notifying the value change
-                  // Made in below widget
-                  Flexible(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: category.length,
-                        itemBuilder: (context, index) => GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = index;
-                            });
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(left: 18),
-                            padding: const EdgeInsets.symmetric(horizontal: 40),
-                            decoration: BoxDecoration(
-                              color: index == selectedIndex
-                                  ? primaryColor
-                                  : Colors.grey.shade400,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            child: Text(
-                              category[index],
-                              style: const TextStyle(color: Colors.white),
+              // Widget adopted from pub.dev <percent_indicator 4.2.2>
+              Flexible(
+                flex: 5,
+                child: Column(
+                  children: [
+                    // Need to use the varying selectedIndex value in CategoryListView
+                    // To take this widget out but stuck with notifying the value change
+                    // Made in below widget
+                    Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: category.length,
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedIndex = index;
+                              });
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              //margin: const EdgeInsets.only(left: 18),
+                              //padding: const EdgeInsets.all(5),
+                              width: MediaQuery.of(context).size.width /
+                                  category.length,
+                              //height: 20,
+                              decoration: BoxDecoration(
+                                color: index == selectedIndex
+                                    ? primaryColor
+                                    : gradientStartColor,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: titleTextColor.withOpacity(0.7),
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.5,
+                                    offset: Offset(0.0,
+                                        5.0), // shadow direction: bottom right
+                                  )
+                                ],
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     //color: neutralColor.withOpacity(0.8),
+                                //     color: index == selectedIndex
+                                //         ? primaryColor
+                                //         : navigationColor,
+                                //     spreadRadius: 5,
+                                //     blurRadius: 10,
+                                //     offset: Offset(
+                                //         0, 3), // changes position of shadow
+                                //   ),
+                                // ],
+                                // borderRadius: BorderRadius.circular(40),
+                              ),
+                              child: Text(
+                                category[index],
+                                style: TextStyle(color: contentTextColor),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
-                  /* In future, when each widgets corresponding to the button have
-                  different contents, if statement can be applied here */
-                  Flexible(
-                    flex: 3,
-                    child: CategoryListView(index: selectedIndex),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: PercentBar(
-                      goalPercentage: widget.successInfo.goalPercentage,
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    /* In future, when each widgets corresponding to the button have
+                    different contents, if statement can be applied here */
+                    Flexible(
+                      flex: 5,
+                      child: CategoryListView(index: selectedIndex),
                     ),
-                  ),
-                ],
+                    Flexible(
+                      flex: 1,
+                      child: PercentBar(
+                        goalPercentage: widget.successInfo.goalPercentage,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
 
-            // Why stack used?
-          ],
+              // Why stack used?
+            ],
+          ),
         ),
         // bottomNavigationBar: Padding(
         //   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -196,25 +256,23 @@ class CardSwiper extends StatelessWidget {
   // List<String> images = widget.successInfo.images;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Swiper(
-        indicatorLayout: PageIndicatorLayout.NONE,
-        pagination: SwiperPagination(
-          builder: DotSwiperPaginationBuilder(
-              color: dotColor,
-              activeColor: contentTextColor,
-              activeSize: 12,
-              space: 4),
-        ),
-        itemBuilder: (context, index) {
-          return Image.network(
-            images[index],
-            fit: BoxFit.fill,
-          );
-        },
-        itemCount: images.length,
-        //control: SwiperControl(),
+    return Swiper(
+      indicatorLayout: PageIndicatorLayout.NONE,
+      pagination: SwiperPagination(
+        builder: DotSwiperPaginationBuilder(
+            color: dotColor,
+            activeColor: contentTextColor,
+            activeSize: 12,
+            space: 4),
       ),
+      itemBuilder: (context, index) {
+        return Image.network(
+          images[index],
+          fit: BoxFit.fill,
+        );
+      },
+      itemCount: images.length,
+      //control: SwiperControl(),
     );
   }
 }
