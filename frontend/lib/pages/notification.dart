@@ -101,10 +101,6 @@ class _NotificationPageState extends State<NotificationPage> {
                                         ),
                                       ),
                                     ),
-                                    // ElevatedButton.styleFrom(
-                                    //   backgroundColor: primaryColor,
-                                    //   shape:
-                                    // ),
                                     child: Text(
                                       "Mark All as Read",
                                       style: GoogleFonts.ubuntu(
@@ -131,25 +127,8 @@ class _NotificationPageState extends State<NotificationPage> {
                   children: [
                     Flexible(
                       flex: 1,
-                      child: NotificationBox(
-                        duration: 'Today',
-                        category: 'last_minute',
-                      ),
+                      child: NotificationBox(),
                     ),
-                    // Flexible(
-                    //   flex: 1,
-                    //   child: NotificationBox(
-                    //     duration: 'This Week',
-                    //     category: 'primary',
-                    //   ),
-                    // ),
-                    //   Flexible(
-                    //   flex: 1,
-                    //   child: NotificationBox(
-                    //     duration: 'Last Week',
-                    //     category: 'teritary',
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -162,12 +141,8 @@ class _NotificationPageState extends State<NotificationPage> {
 }
 
 class NotificationBox extends StatefulWidget {
-  final String duration;
-  final String category;
   const NotificationBox({
     super.key,
-    required this.duration,
-    required this.category,
   });
 
   @override
@@ -198,22 +173,6 @@ class _NotificationBoxState extends State<NotificationBox> {
       child: Builder(builder: (context) {
         return Column(
           children: [
-            // Flexible(
-            //   flex: 1,
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     children: [
-            //       Text(
-            //         widget.duration,
-            //         style: GoogleFonts.ubuntu(
-            //           color: titleTextColor,
-            //           fontSize: 16,
-            //           fontWeight: FontWeight.w400,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               //crossAxisAlignment: CrossAxisAlignment.end,
@@ -266,20 +225,18 @@ class _NotificationBoxState extends State<NotificationBox> {
                     }
                   }
 
-                  if (currentdate
-                              .difference(
-                                  DateTime.parse(successInfos[index].datetime))
-                              .inDays <=
-                          1 &&
-                      day == 0) {
+                  int difference = currentdate
+                      .difference(DateTime.parse(successInfos[index].datetime))
+                      .inDays;
+                  if (difference <= 1 && day == 0) {
                     day = 1;
                     dayindex = index;
-                  } else if (currentdate
-                              .difference(
-                                  DateTime.parse(successInfos[index].datetime))
-                              .inDays >
-                          7 &&
-                      lastweek == 0) {
+                  } else if (difference > 1 &&
+                      difference <= 7 &&
+                      thisweek == 0) {
+                    thisweek = 1;
+                    thisweekindex = index;
+                  } else if (difference > 7 && lastweek == 0) {
                     lastweek = 1;
                     lastweekindex = index;
                   }
@@ -293,6 +250,16 @@ class _NotificationBoxState extends State<NotificationBox> {
                         if (index == dayindex) ...[
                           Text(
                             "Today",
+                            style: GoogleFonts.ubuntu(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900,
+                              color: titleTextColor,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ] else if (index == thisweekindex) ...[
+                          Text(
+                            "This Week",
                             style: GoogleFonts.ubuntu(
                               fontSize: 12,
                               fontWeight: FontWeight.w900,

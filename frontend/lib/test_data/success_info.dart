@@ -66,7 +66,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: true,
     goalPercentage: 30,
     read: false,
-    datetime: '2022-03-04 20:34:16',
+    datetime: '2023-03-01 20:34:16',
   ),
   SuccessInfo(
     3,
@@ -86,7 +86,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: true,
     goalPercentage: 40,
     read: false,
-    datetime: '2021-09-13 15:34:16',
+    datetime: '2023-02-28 15:34:16',
   ),
   SuccessInfo(
     4,
@@ -105,7 +105,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: true,
     goalPercentage: 50,
     read: false,
-    datetime: '2001-11-13 15:34:16',
+    datetime: '2023-02-28 15:34:16',
   ),
   SuccessInfo(
     5,
@@ -124,7 +124,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: false,
     goalPercentage: 0,
     read: false,
-    datetime: '2015-05-01 11:34:16',
+    datetime: '2023-02-28 15:34:16',
   ),
   SuccessInfo(
     6,
@@ -143,7 +143,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: false,
     goalPercentage: 70,
     read: false,
-    datetime: '2005-09-13 15:34:16',
+    datetime: '2023-02-28 15:34:16',
   ),
   SuccessInfo(
     7,
