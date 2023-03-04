@@ -1,5 +1,6 @@
 import 'package:dreamers/pages/main_page.dart';
 import 'package:dreamers/pages/notification.dart';
+import 'package:dreamers/pages/profile_page.dart';
 import 'package:dreamers/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamers/pages/feed.dart';
@@ -31,6 +32,7 @@ class _MyAppState extends State<MyApp> {
       "/search": (context) => const SearchPage(),
       "/success-story": (context) => const FeedPage(),
       "/notification": (context) => const NotificationPage(),
+      "/profile": (context) => const ProfilePage(),
     });
   }
 }

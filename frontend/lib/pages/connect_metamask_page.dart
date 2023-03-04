@@ -1,6 +1,10 @@
+import 'package:dreamers/pages/profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:walletconnect_dart/walletconnect_dart.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+import '../constants/colors.dart';
 
 class ConnectMetamaskPage extends StatefulWidget {
   const ConnectMetamaskPage({super.key});
@@ -20,6 +24,17 @@ class _ConnectMetamaskPageState extends State<ConnectMetamaskPage> {
   var _session;
   var _uri;
 
+  @override
+  void initState() {
+    if (_session != Null) {
+      Future(() {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ProfilePage()));
+      });
+    }
+    super.initState();
+  }
+
   loginUsingMetaMask(BuildContext context) async {
     if (!connector.connected) {
       try {
@@ -27,11 +42,17 @@ class _ConnectMetamaskPageState extends State<ConnectMetamaskPage> {
           _uri = uri;
           await launchUrlString(uri, mode: LaunchMode.externalApplication);
         });
-        print(session.accounts[0]);
-        print(session.chainId);
+        debugPrint(session.accounts[0]);
+        debugPrint(session.chainId as String?);
 
         setState(() {
           _session = session;
+        });
+        Future(() {
+          Future(() {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfilePage()));
+          });
         });
       } catch (e) {
         print('error => $e');
@@ -41,29 +62,49 @@ class _ConnectMetamaskPageState extends State<ConnectMetamaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Connect to Metamask'),
+    return Scaffold(
+        body: SafeArea(
+      child: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(
+            "Connect to Use Full Feature",
+            style: GoogleFonts.ubuntu(
+              color: titleTextColor,
+              fontSize: 30,
+              fontWeight: FontWeight.w900,
+            ),
+            textAlign: TextAlign.center,
           ),
-          body: SingleChildScrollView(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                Image.asset(
-                  'assets/images/buffett.jpeg',
-                  fit: BoxFit.fitHeight,
-                ),
-                ElevatedButton(
-                  onPressed: () => loginUsingMetaMask(context),
-                  child: const Text("Connect with Metamask"),
-                ),
-                ElevatedButton(
-                  onPressed: () =>
-                      {Navigator.pushNamed(context, "/connect-coinbase")},
-                  child: const Text("Connect with Coinbase"),
-                )
-              ]))),
-    );
+          SizedBox(height: 40),
+          OutlinedButton(
+            onPressed: () => loginUsingMetaMask(context),
+            style: OutlinedButton.styleFrom(
+                fixedSize: const Size(200, 36),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    side: BorderSide(color: Colors.black))),
+            child: Text("Connect with Metamask",
+                style: GoogleFonts.ubuntu(
+                    color: titleTextColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12)),
+          ),
+          OutlinedButton(
+            onPressed: () =>
+                {Navigator.pushNamed(context, "/connect-coinbase")},
+            style: OutlinedButton.styleFrom(
+                fixedSize: const Size(200, 36),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    side: BorderSide(color: Colors.black))),
+            child: Text("Connect with Coinbase",
+                style: GoogleFonts.ubuntu(
+                    color: titleTextColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12)),
+          )
+        ]),
+      ),
+    ));
   }
 }
