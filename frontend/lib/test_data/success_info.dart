@@ -10,6 +10,7 @@ class SuccessInfo {
   final bool isWishlist;
   bool read;
   double goalPercentage;
+  final String datetime;
 
   SuccessInfo(
     this.position, {
@@ -23,6 +24,7 @@ class SuccessInfo {
     required this.isWishlist,
     required this.goalPercentage,
     required this.read,
+    required this.datetime,
   });
 }
 
@@ -44,6 +46,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: true,
     goalPercentage: 20,
     read: false,
+    datetime: '2023-03-05 00:00:00',
   ),
   SuccessInfo(
     2,
@@ -63,6 +66,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: true,
     goalPercentage: 30,
     read: false,
+    datetime: '2022-03-04 20:34:16',
   ),
   SuccessInfo(
     3,
@@ -82,6 +86,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: true,
     goalPercentage: 40,
     read: false,
+    datetime: '2021-09-13 15:34:16',
   ),
   SuccessInfo(
     4,
@@ -100,6 +105,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: true,
     goalPercentage: 50,
     read: false,
+    datetime: '2001-11-13 15:34:16',
   ),
   SuccessInfo(
     5,
@@ -118,6 +124,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: false,
     goalPercentage: 0,
     read: false,
+    datetime: '2015-05-01 11:34:16',
   ),
   SuccessInfo(
     6,
@@ -136,6 +143,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: false,
     goalPercentage: 70,
     read: false,
+    datetime: '2005-09-13 15:34:16',
   ),
   SuccessInfo(
     7,
@@ -154,6 +162,7 @@ List<SuccessInfo> successInfo = [
     isWishlist: false,
     goalPercentage: 80,
     read: false,
+    datetime: '2011-12-25 08:00:16',
   ),
   SuccessInfo(
     8,
@@ -172,5 +181,6 @@ List<SuccessInfo> successInfo = [
     isWishlist: false,
     goalPercentage: 100,
     read: false,
+    datetime: '2002-09-17 15:34:16',
   ),
 ];

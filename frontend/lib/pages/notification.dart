@@ -181,15 +181,18 @@ class _NotificationBoxState extends State<NotificationBox> {
   // when setstate is called, it reruns the entire build function
   static List<SuccessInfo> successInfos = successInfo;
   static int noOfNotifications = successInfos.length;
+  int day = 0;
+  int dayindex = 0;
+  int thisweek = 0;
+  int thisweekindex = 0;
+  int lastweek = 0;
+  int lastweekindex = 0;
   @override
   Widget build(BuildContext context) {
-    // final successInfos = successInfo
-    //     .where(
-    //       (successInfos) => successInfos.category
-    //           .any((category) => category == widget.category),
-    //     )
-    //     .toList();
+    // need to find a way to put this sorting outside of build
+    successInfos.sort((a, b) => b.datetime.compareTo(a.datetime));
 
+    DateTime currentdate = DateTime.now();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Builder(builder: (context) {
@@ -256,59 +259,121 @@ class _NotificationBoxState extends State<NotificationBox> {
                 itemCount: successInfos.length,
                 itemBuilder: (context, index) {
                   void markAsRead() {
-                    successInfos[index].read = true;
-                    --noOfNotifications;
+                    if (noOfNotifications > 0 &&
+                        successInfos[index].read == false) {
+                      successInfos[index].read = true;
+                      --noOfNotifications;
+                    }
                   }
 
+                  if (currentdate
+                              .difference(
+                                  DateTime.parse(successInfos[index].datetime))
+                              .inDays <=
+                          1 &&
+                      day == 0) {
+                    day = 1;
+                    dayindex = index;
+                  } else if (currentdate
+                              .difference(
+                                  DateTime.parse(successInfos[index].datetime))
+                              .inDays >
+                          7 &&
+                      lastweek == 0) {
+                    lastweek = 1;
+                    lastweekindex = index;
+                  }
                   return GestureDetector(
                     onTap: () => setState(() {
                       markAsRead();
                     }),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Container(
-                        //margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.all(10),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          //color: Colors.orange,
-                          border: Border.all(
-                              color: neutralColor, // Set border color
-                              width: 3.0), // Set border width
-                          borderRadius: BorderRadius.all(Radius.circular(
-                              10.0)), // Set rounded corner radius
-                          // Make rounded corner of border
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.circle,
-                              size: 10,
-                              color: successInfos[index].read
-                                  ? Colors.white
-                                  : primaryColor,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (index == dayindex) ...[
+                          Text(
+                            "Today",
+                            style: GoogleFonts.ubuntu(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900,
+                              color: titleTextColor,
                             ),
-                            SizedBox(
-                              width: 10,
+                            textAlign: TextAlign.left,
+                          ),
+                        ] else if (index == lastweekindex) ...[
+                          Text(
+                            "Last Week",
+                            style: GoogleFonts.ubuntu(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900,
+                              color: titleTextColor,
                             ),
-                            ConstrainedBox(
-                              constraints: BoxConstraints(
-                                  maxWidth:
-                                      MediaQuery.of(context).size.width - 100),
-                              child: Text(
-                                //"This is test data" * 10,
-                                successInfos[index].description,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 4,
-                                style: GoogleFonts.lato(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                        // Text(
+                        //   currentdate
+                        //               .difference(DateTime.parse(
+                        //                   successInfos[index].datetime))
+                        //               .inDays <=
+                        //           1
+                        //       ? "Today"
+                        //       : "aa",
+                        //   style: GoogleFonts.ubuntu(
+                        //     fontSize: 12,
+                        //     fontWeight: FontWeight.w900,
+                        //     color: titleTextColor,
+                        //   ),
+                        //   textAlign: TextAlign.left,
+                        // ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: Container(
+                            //margin: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(10),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              //color: Colors.orange,
+                              border: Border.all(
+                                  color: neutralColor, // Set border color
+                                  width: 3.0), // Set border width
+                              borderRadius: BorderRadius.all(Radius.circular(
+                                  10.0)), // Set rounded corner radius
+                              // Make rounded corner of border
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.circle,
+                                  size: 10,
+                                  color: successInfos[index].read
+                                      ? Colors.white
+                                      : primaryColor,
                                 ),
-                              ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                      maxWidth:
+                                          MediaQuery.of(context).size.width -
+                                              100),
+                                  child: Text(
+                                    //"This is test data" * 10,
+                                    successInfos[index].description,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 4,
+                                    style: GoogleFonts.lato(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   );
                 },

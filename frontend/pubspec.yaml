@@ -38,6 +38,7 @@ dependencies:
   url_launcher: ^6.1.10
   coinbase_wallet_sdk: ^1.0.6
   walletconnect_dart: ^0.0.11
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
