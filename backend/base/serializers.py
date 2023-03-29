@@ -23,6 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
     if name == '':
       name = obj.username
     return name
+  
 
 class UserSerializerWithToken(UserSerializer):
   token = serializers.SerializerMethodField(read_only=True)

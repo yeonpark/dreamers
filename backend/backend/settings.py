@@ -91,7 +91,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    "EXCEPTION_HANDLER": "backend.urls.api_exception_handler"
+    "EXCEPTION_HANDLER": "backend.urls.api_exception_handler",
 }
 
 ROOT_URLCONF = 'backend.urls'
