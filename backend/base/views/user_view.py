@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status, serializers
@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from base.serializers import UserSerializerWithToken
+from base.serializers import UserSerializerWithToken, UserSerializer
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
   def validate(self, attrs):
@@ -52,6 +52,18 @@ def changePassword(request):
     return Response(True)
   except ValidationError as e:
     raise serializers.ValidationError(e.message)
-  
 
-  
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUser(request):
+  user = request.user
+  serializer = UserSerializer(user)
+  return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getUsers(request):
+  users = User.objects.all()
+  serializer = UserSerializer(users, many=True)
+  return Response(serializer.data)
+
