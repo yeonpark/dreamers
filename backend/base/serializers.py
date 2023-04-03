@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
+from .models import *
 
 # User
 class UserSerializer(serializers.ModelSerializer):
@@ -35,3 +36,28 @@ class UserSerializerWithToken(UserSerializer):
   def get_token(self, obj):
     token = RefreshToken.for_user(obj)
     return str(token.access_token)
+  
+# Application Schema
+class ApplicationSchemaSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = ApplicationSchema
+    fields = '__all__'
+
+# Item
+class StoryImageSerializer(serializers.ModelSerializer):
+  thumbnail_image = serializers.ReadOnlyField(source="thumbnail_image.url")
+  class Meta:
+    model = StoryImage
+    fields = ('image', 'thumbnail_image','thumbnail')
+
+class StorySerializer(serializers.ModelSerializer):
+  images = StoryImageSerializer(source="item_image", many=True)
+  creator = UserSerializer(source="user", read_only=True)
+  title = serializers.ReadOnlyField(source="heading")
+  createDate = serializers.ReadOnlyField(source="createdAt")
+  description = serializers.ReadOnlyField(source="full_detail")
+  category = ApplicationSchemaSerializer(source="story-category")
+
+  class Meta:
+    model = Story
+    fields = '__all__'

@@ -77,6 +77,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -162,6 +163,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+MEDIA_ROOT = 'static/images'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
