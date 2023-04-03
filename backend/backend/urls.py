@@ -9,7 +9,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/system/', include('base.urls.system_url')),
-    path('api/user/', include('base.urls.user_url'))
+    path('api/user/', include('base.urls.user_url')),
+    path('api/story/', include('base.urls.story_url'))
 ]
 
 def api_exception_handler(exc: Exception, context: Dict[str, Any]) -> Response:
