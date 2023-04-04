@@ -1,11 +1,10 @@
 from django.test import TestCase
 from django.contrib.auth.hashers import make_password
-
-from base.serializers import StorySerializer
+from rest_framework.response import Response
+from base.serializers import StoryBriefSerializer, StorySerializer
 # Create your tests here.
-from .models import *
+from ..models import *
 from django.test import TestCase
-
 
 def create_story():
   try:
@@ -27,9 +26,9 @@ def create_story():
     isVerified=True
   )
 
-  return StorySerializer(newStory).data
+  return StoryBriefSerializer(newStory).data
 
-class StoryViewTests(TestCase):
+class StoryViewTest(TestCase):
   def test_no_story(self):
     """
       If no questions exist, an appropriate message is displayed
@@ -45,4 +44,3 @@ class StoryViewTests(TestCase):
     self.assertEqual(
       response.data, [created]
     )
-

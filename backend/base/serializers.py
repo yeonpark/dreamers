@@ -77,4 +77,4 @@ class StoryBriefSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Story
-    fields = ('createDate', 'title', 'summary', 'category', 'images')
+    fields = ('createDate', 'title', 'summary', 'category', 'story_thumbnail')
