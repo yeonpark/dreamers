@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dreamers/pages/feed.dart';
 import 'package:dreamers/pages/itemlist.dart';
 import 'connect_metamask_page.dart';
+import 'login.dart';
 
 //import '../test_data/success_info.dart';
 //import '../test_data/success_info.dart';
@@ -43,7 +44,8 @@ class _MainPageState extends State<MainPage> {
     //     ),
     //   ),
     // ),
-    ConnectMetamaskPage()
+    // ConnectMetamaskPage()
+    Login(),
   ];
   // This widget is the root of your application.
   @override

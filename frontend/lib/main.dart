@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:dreamers/pages/feed.dart';
 import 'pages/connect_coinbase_page.dart';
 import 'pages/connect_metamask_page.dart';
+import 'pages/login.dart';
 
 //import '../test_data/success_info.dart';
 //import '../test_data/success_info.dart';
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
       "/success-story": (context) => const FeedPage(),
       "/notification": (context) => const NotificationPage(),
       "/profile": (context) => const ProfilePage(),
+      "/login": (context) => Login(),
     });
   }
 }
