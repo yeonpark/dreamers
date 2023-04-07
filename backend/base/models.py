@@ -9,11 +9,12 @@ class Social(models.Model):
 
 class ApplicationSchema(models.Model):
   _id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+  keyword = models.CharField(max_length=30, null=True)
 
 class Story(models.Model):
   _id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
   user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, editable=False, related_name='story_user')
-  category = models.ForeignKey(ApplicationSchema, on_delete=models.SET_NULL, null=True,related_name='story_category')
+  category = models.ManyToManyField(ApplicationSchema, blank=True,related_name='story_category')
   social = models.OneToOneField(Social, on_delete=models.SET_NULL, null=True, related_name='social_features')
   heading = models.CharField(max_length=50)
   sub_heading = models.CharField(max_length=50)

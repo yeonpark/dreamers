@@ -44,7 +44,6 @@ class ApplicationSchemaSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 
-
 # Story
 class StoryBriefImageSerializer(serializers.ModelSerializer):
   thumbnail_image = serializers.ReadOnlyField(source="thumbnail_image.url")
@@ -61,10 +60,11 @@ class StoryImageSerializer(serializers.ModelSerializer):
 class StorySerializer(serializers.ModelSerializer):
   images = StoryImageSerializer(source="item_image", many=True)
   user = UserSerializer(read_only=True)
+  category = ApplicationSchemaSerializer(read_only=True, many=True)
 
   class Meta:
     model = Story
-    fields = ('user', 'createdAt', 'heading', 'sub_heading','full_detail', 'summary', 'images', 'country', 'isVerified')
+    fields = ('user', 'createdAt', 'category', 'heading', 'sub_heading', 'full_detail', 'summary', 'images', 'country', 'isVerified')
 
 
 class StoryBriefSerializer(serializers.ModelSerializer):

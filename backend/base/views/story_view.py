@@ -39,8 +39,10 @@ def postStory(request):
     country=data['country'],
     summary=data['summary'],
     full_detail=data['full_detail'],
-    isVerified=True
+    isVerified=True,
   )
+  for cat in data['category']:
+    story.category.add(ApplicationSchema.objects.create(keyword=cat))
   serializer = StorySerializer(story)
   return Response(serializer.data)
   

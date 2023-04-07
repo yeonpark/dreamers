@@ -59,7 +59,8 @@ class StoryViewTest(TestCase):
       'country':"hk",
       'summary':"loris ipsum corpus callosum",
       'full_detail':"loris ipsum corpus callosum sefja elfijseilsj",
-      'isVerified':True
+      'isVerified':True,
+      'category': ['test', 'test1']
     }
     # Create post request using factory
     request = self._factory.post('/api/story/post-story/', data, format='json')
@@ -71,7 +72,19 @@ class StoryViewTest(TestCase):
     self.assertEqual(response.status_code, 200, msg=f'{response.data}')
     # Check data
     for k,v in data.items():
-      self.assertEqual(response.data[k], v, msg=f'{response.data} {v}')
+      if (k == 'category'):
+        count_keyword = {}
+        categories = response.data[k]
+        for i in range(len(categories)):
+          if categories[i]['keyword'] not in count_keyword:
+            count_keyword[categories[i]['keyword']] = 0
+          count_keyword[categories[i]['keyword']] += 1
+        for i in range(len(v)):
+          count_keyword[v[i]] -= 1
+        for k in count_keyword:
+          self.assertEqual(count_keyword[k], 0)
+      else:
+        self.assertEqual(response.data[k], v, msg=f'{response.data} {v}')
   
   def test_existing_story(self):
     created = create_story()
