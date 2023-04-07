@@ -32,12 +32,15 @@ def create_story():
 
 class StoryViewTest(TestCase):
   def setUp(self):
+    # API request factory
     self._factory = APIRequestFactory()
+    # Creates User to force authenticate later
     self._user = User.objects.create(
       first_name='testuser',
       username='test@gmail.com',
       email="test@gmail.com", 
       password=make_password('12345'))
+    
   def test_no_story(self):
     """
       If no questions exist, an appropriate message is displayed
@@ -47,6 +50,9 @@ class StoryViewTest(TestCase):
     self.assertEqual(response.data, [])
   
   def test_add_story(self):
+    """
+      Test Posting Story
+    """
     data = {
       "heading":"TEST",
       'sub_heading':"test",
@@ -55,10 +61,15 @@ class StoryViewTest(TestCase):
       'full_detail':"loris ipsum corpus callosum sefja elfijseilsj",
       'isVerified':True
     }
+    # Create post request using factory
     request = self._factory.post('/api/story/post-story/', data, format='json')
+    # Force authentication of the user
     force_authenticate(request, user=self._user)
+    # get response from the view
     response = postStory(request)
+    # Check Status Code
     self.assertEqual(response.status_code, 200, msg=f'{response.data}')
+    # Check data
     for k,v in data.items():
       self.assertEqual(response.data[k], v, msg=f'{response.data} {v}')
   
