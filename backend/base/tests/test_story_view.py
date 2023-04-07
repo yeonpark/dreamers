@@ -2,9 +2,11 @@ from django.test import TestCase
 from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
 from base.serializers import StoryBriefSerializer, StorySerializer
+from rest_framework.test import APIRequestFactory, force_authenticate
 # Create your tests here.
 from ..models import *
-from django.test import TestCase
+from ..views.story_view import postStory
+
 
 def create_story():
   try:
@@ -23,12 +25,19 @@ def create_story():
     country="hk",
     summary="loris ipsum corpus callosum",
     full_detail="loris ipsum corpus callosum sefja elfijseilsj",
-    isVerified=True
+    isVerified="True"
   )
 
   return StoryBriefSerializer(newStory).data
 
 class StoryViewTest(TestCase):
+  def setUp(self):
+    self._factory = APIRequestFactory()
+    self._user = User.objects.create(
+      first_name='testuser',
+      username='test@gmail.com',
+      email="test@gmail.com", 
+      password=make_password('12345'))
   def test_no_story(self):
     """
       If no questions exist, an appropriate message is displayed
@@ -37,10 +46,26 @@ class StoryViewTest(TestCase):
     self.assertEqual(response.status_code, 200)
     self.assertEqual(response.data, [])
   
+  def test_add_story(self):
+    data = {
+      "heading":"TEST",
+      'sub_heading':"test",
+      'country':"hk",
+      'summary':"loris ipsum corpus callosum",
+      'full_detail':"loris ipsum corpus callosum sefja elfijseilsj",
+      'isVerified':True
+    }
+    request = self._factory.post('/api/story/post-story/', data, format='json')
+    force_authenticate(request, user=self._user)
+    response = postStory(request)
+    self.assertEqual(response.status_code, 200, msg=f'{response.data}')
+    for k,v in data.items():
+      self.assertEqual(response.data[k], v, msg=f'{response.data} {v}')
+  
   def test_existing_story(self):
     created = create_story()
     response = self.client.get('/api/story/all/')
     self.assertEqual(response.status_code, 200)
     self.assertEqual(
       response.data, [created]
-    )
+    ) 

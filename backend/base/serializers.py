@@ -60,14 +60,11 @@ class StoryImageSerializer(serializers.ModelSerializer):
 
 class StorySerializer(serializers.ModelSerializer):
   images = StoryImageSerializer(source="item_image", many=True)
-  creator = UserSerializer(source="user", read_only=True)
-  title = serializers.ReadOnlyField(source="heading")
-  createDate = serializers.ReadOnlyField(source="createdAt")
-  description = serializers.ReadOnlyField(source="full_detail")
+  user = UserSerializer(read_only=True)
 
   class Meta:
     model = Story
-    fields = ('creator', 'createDate', 'title', 'description', 'category', 'images')
+    fields = ('user', 'createdAt', 'heading', 'sub_heading','full_detail', 'summary', 'images', 'country', 'isVerified')
 
 
 class StoryBriefSerializer(serializers.ModelSerializer):
@@ -77,4 +74,4 @@ class StoryBriefSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Story
-    fields = ('createDate', 'title', 'summary', 'category', 'story_thumbnail')
+    fields = ('createDate', 'title', 'summary', 'story_thumbnail')
