@@ -64,7 +64,7 @@ class StorySerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Story
-    fields = ('user', 'createdAt', 'category', 'heading', 'sub_heading', 'full_detail', 'summary', 'images', 'country', 'isVerified')
+    fields = ('_id', 'user', 'createdAt', 'category', 'heading', 'sub_heading', 'full_detail', 'summary', 'images', 'country', 'isVerified')
 
 
 class StoryBriefSerializer(serializers.ModelSerializer):
@@ -75,4 +75,4 @@ class StoryBriefSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Story
-    fields = ('createDate', 'title', 'summary', 'story_thumbnail', 'category')
+    fields = ('_id', 'createDate', 'title', 'summary', 'story_thumbnail', 'category')
