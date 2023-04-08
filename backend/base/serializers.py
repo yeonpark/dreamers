@@ -71,7 +71,8 @@ class StoryBriefSerializer(serializers.ModelSerializer):
   story_thumbnail = StoryBriefImageSerializer(source="item_image", many=True)
   title = serializers.ReadOnlyField(source="heading")
   createDate = serializers.ReadOnlyField(source="createdAt")
+  category = ApplicationSchemaSerializer(read_only=True, many=True)
 
   class Meta:
     model = Story
-    fields = ('createDate', 'title', 'summary', 'story_thumbnail')
+    fields = ('createDate', 'title', 'summary', 'story_thumbnail', 'category')
