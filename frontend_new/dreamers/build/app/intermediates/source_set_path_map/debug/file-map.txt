@@ -10,3 +10,4 @@ com.example.dreamers.app-rs-8 C:\src\dreamers\dreamers_v0.2\dreamers\frontend_ne
 com.example.dreamers.app-mergeDebugResources-9 C:\src\dreamers\dreamers_v0.2\dreamers\frontend_new\dreamers\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
 com.example.dreamers.app-mergeDebugResources-10 C:\src\dreamers\dreamers_v0.2\dreamers\frontend_new\dreamers\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
 com.example.dreamers.app-merged_res-11 C:\src\dreamers\dreamers_v0.2\dreamers\frontend_new\dreamers\build\app\intermediates\merged_res\debug
+com.example.dreamers.app-packaged_res-12 C:\src\dreamers\dreamers_v0.2\dreamers\frontend_new\dreamers\build\shared_preferences_android\intermediates\packaged_res\debug
