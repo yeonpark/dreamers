@@ -47,6 +47,8 @@ def changePassword(request):
   try:
     if not check_password(data['currentPassword'], user.password):
       raise ValidationError('Current Password is wrong')
+    if (data['currentPassword'] == data['newPassword']):
+      raise ValidationError('New password cannot be same as current password')
     user.password = make_password(data['newPassword'])
     user.save()
     return Response(True)

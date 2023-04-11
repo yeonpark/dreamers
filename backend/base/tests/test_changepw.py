@@ -21,9 +21,11 @@ class ChangePassWordTest(TestCase):
             If currentPassword is wrong, an appropriate message is displayed
         """
         request = self._factory.put('/api/user/changepw/', {'currentPassword' : '54321', 'newPassword' : '23456'})
-        self.assertEqual(request.status_code, 400)
+        force_authenticate(request, user=self._user)
+        response = changePassword(request)
+        self.assertEqual(response.status_code, 400)
     
-    def test_change_pw(self):
+    def test_change_pw(self):   
         """
             Test changing password
         """
@@ -31,4 +33,15 @@ class ChangePassWordTest(TestCase):
         force_authenticate(request, user=self._user)
         response = changePassword(request)
         self.assertEqual(response.status_code, 200)
+        print(response.data)
         self.assertEqual(response.data, True)
+
+    def test_new_pw_is_same(self):
+        """
+            If newPassword is same as currentPassword, an appropriate error is displayed
+        """
+        request = self._factory.put('/api/user/changepw/', {'currentPassword': '12345', 'newPassword' : '12345'})
+        force_authenticate(request, user=self._user)
+        response = changePassword(request)
+        self.assertEqual(response.status_code, 400)
+        
