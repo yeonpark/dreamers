@@ -33,7 +33,6 @@ class ChangePassWordTest(TestCase):
         force_authenticate(request, user=self._user)
         response = changePassword(request)
         self.assertEqual(response.status_code, 200)
-        print(response.data)
         self.assertEqual(response.data, True)
 
     def test_new_pw_is_same(self):
