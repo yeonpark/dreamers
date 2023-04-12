@@ -37,13 +37,41 @@ class UserSerializerWithToken(UserSerializer):
     token = RefreshToken.for_user(obj)
     return str(token.access_token)
   
-# Application Schema
-class ApplicationSchemaSerializer(serializers.ModelSerializer):
+# Application Category
+class ApplicationCategorySerializer(serializers.ModelSerializer):
   class Meta:
-    model = ApplicationSchema
+    model = ApplicationCategory
     fields = '__all__'
 
+# Application Schema
+class MonthlyApplicationSchemaSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = MonthlyApplicationSchema
+    fields = ('_id', 'month_cnt', 'monthly_stipend')
 
+class ScholarshipApplicationSchemaSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = ScholarshipApplicationSchema
+    fields = ('_id', 'institution_name', 'scholarship')
+
+class ApplicationSchemaSerializer(serializers.ModelSerializer):
+  schema = serializers.SerializerMethodField()
+
+  class Meta:
+    model = ApplicationSchema
+    fields = ('_id', 'schema_name', 'schema')
+
+  # Dynamically choose a serializer.
+  def get_schema(self, obj):
+    if obj.schema_name == 'monthly':
+      queryset = MonthlyApplicationSchema.objects.get(parent=obj)
+      serializer = MonthlyApplicationSchemaSerializer(queryset)
+      return serializer.data
+    else:
+      queryset = ScholarshipApplicationSchema.objects.get(parent=obj)
+      serializer = ScholarshipApplicationSchemaSerializer(queryset)
+      return serializer.data
+    
 # Story
 class StoryBriefImageSerializer(serializers.ModelSerializer):
   thumbnail_image = serializers.ReadOnlyField(source="thumbnail_image.url")
@@ -60,18 +88,19 @@ class StoryImageSerializer(serializers.ModelSerializer):
 class StorySerializer(serializers.ModelSerializer):
   images = StoryImageSerializer(source="item_image", many=True)
   user = UserSerializer(read_only=True)
-  category = ApplicationSchemaSerializer(read_only=True, many=True)
+  category = ApplicationCategorySerializer(read_only=True, many=True)
+  schema = ApplicationSchemaSerializer()
 
   class Meta:
     model = Story
-    fields = ('_id', 'user', 'createdAt', 'category', 'heading', 'sub_heading', 'full_detail', 'summary', 'images', 'country', 'isVerified')
+    fields = ('_id', 'user', 'createdAt', 'category', 'heading', 'sub_heading', 'full_detail', 'summary', 'images', 'country', 'is_verified', 'schema')
 
 
 class StoryBriefSerializer(serializers.ModelSerializer):
   story_thumbnail = StoryBriefImageSerializer(source="item_image", many=True)
   title = serializers.ReadOnlyField(source="heading")
   createDate = serializers.ReadOnlyField(source="createdAt")
-  category = ApplicationSchemaSerializer(read_only=True, many=True)
+  category = ApplicationCategorySerializer(read_only=True, many=True)
 
   class Meta:
     model = Story

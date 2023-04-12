@@ -32,6 +32,25 @@ def getStories(request):
 @permission_classes([IsAuthenticated])
 def postStory(request):
   data = request.data
+
+  # Monthly and Scholarhips Inheriting ApplicationSchema allows flexibiliity
+  parent = ApplicationSchema.objects.create(
+    schema_name=data['schema']
+  )
+  
+  if data['schema'] == 'monthly':
+    MonthlyApplicationSchema.objects.create(
+      month_cnt = data['month_cnt'],
+      monthly_stipend = data['monthly_stipend'],
+      parent = parent,
+    )
+  elif data['schema'] == 'tuition':
+    ScholarshipApplicationSchema.objects.create(
+      institution_name = data['institution_name'],
+      tuition = data['tuition'],
+      parent = parent
+    )
+  
   story = Story.objects.create(
     user=request.user,
     heading=data['heading'],
@@ -39,10 +58,23 @@ def postStory(request):
     country=data['country'],
     summary=data['summary'],
     full_detail=data['full_detail'],
-    isVerified=True,
+    is_verified=True,
+    schema=parent
   )
   for cat in data['category']:
-    story.category.add(ApplicationSchema.objects.create(keyword=cat))
+    if ApplicationCategory.objects.filter(keyword=cat).exists():
+      story.category.add(ApplicationCategory.objects.get(keyword=cat))
+    else:
+      story.category.add(ApplicationCategory.objects.create(keyword=cat))
+
+  reqImages = request.FILES.getlist('images')
+  for i, reqImage in enumerate(reqImages):
+    StoryImage.objects.create(
+      item= story,
+      image = reqImage,
+      thumbnail = (i < 2)
+    )
+
   serializer = StorySerializer(story)
   return Response(serializer.data)
   

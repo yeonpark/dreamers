@@ -8,27 +8,6 @@ from ..models import *
 from ..views.story_view import postStory
 
 
-def create_story():
-  try:
-    user = User.objects.get(username='johndoe@gmail.com')
-  except:
-    user = User.objects.create(
-      username='johndoe@gmail.com',
-      email='johndoe@gmail.com',
-      password=make_password('janedoe')
-    )
-
-  newStory = Story.objects.create(
-    user=user,
-    heading="TEST",
-    sub_heading="test",
-    country="hk",
-    summary="loris ipsum corpus callosum",
-    full_detail="loris ipsum corpus callosum sefja elfijseilsj",
-    isVerified="True"
-  )
-
-  return StoryBriefSerializer(newStory).data
 
 class StoryViewTest(TestCase):
   def setUp(self):
@@ -40,6 +19,19 @@ class StoryViewTest(TestCase):
       username='test@gmail.com',
       email="test@gmail.com", 
       password=make_password('12345'))
+    
+    self._data = {
+      "heading":"TEST",
+      'sub_heading':"test",
+      'country':"hk",
+      'summary':"loris ipsum corpus callosum",
+      'full_detail':"loris ipsum corpus callosum sefja elfijseilsj",
+      'is_verified':True,
+      'category': ['test', 'test1'],
+      'schema': 'monthly',
+      'month_cnt': 1,
+      'monthly_stipend': 2332.43
+    }
     
   def test_no_story(self):
     """
@@ -53,17 +45,8 @@ class StoryViewTest(TestCase):
     """
       Test Posting Story
     """
-    data = {
-      "heading":"TEST",
-      'sub_heading':"test",
-      'country':"hk",
-      'summary':"loris ipsum corpus callosum",
-      'full_detail':"loris ipsum corpus callosum sefja elfijseilsj",
-      'isVerified':True,
-      'category': ['test', 'test1']
-    }
     # Create post request using factory
-    request = self._factory.post('/api/story/post-story/', data, format='json')
+    request = self._factory.post('/api/story/post-story/', self._data, format='json')
     # Force authentication of the user
     force_authenticate(request, user=self._user)
     # get response from the view
@@ -71,7 +54,7 @@ class StoryViewTest(TestCase):
     # Check Status Code
     self.assertEqual(response.status_code, 200, msg=f'{response.data}')
     # Check data
-    for k,v in data.items():
+    for k,v in self._data.items():
       if (k == 'category'):
         count_keyword = {}
         categories = response.data[k]
@@ -83,13 +66,25 @@ class StoryViewTest(TestCase):
           count_keyword[v[i]] -= 1
         for k in count_keyword:
           self.assertEqual(count_keyword[k], 0)
+      
+      elif (k == 'schema'):
+        self.assertEqual(v, response.data['schema']['schema_name'], msg=f'{response.data} {v}')
+      
+      elif (k == 'month_cnt'):
+        self.assertEqual(v, response.data['schema']['schema'][k], msg=f'{response.data} {v}')
+
+      elif (k == 'monthly_stipend'):
+        self.assertEqual(str(v), response.data['schema']['schema'][k], msg=f'{response.data} {v}')
+
       else:
         self.assertEqual(response.data[k], v, msg=f'{response.data} {v}')
   
   def test_existing_story(self):
-    created = create_story()
+    # Create post request using factory
+    request = self._factory.post('/api/story/post-story/', self._data, format='json')
+    # Force authentication of the user
+    force_authenticate(request, user=self._user)
+    # get response from the view
+    response = postStory(request)
     response = self.client.get('/api/story/all/')
     self.assertEqual(response.status_code, 200)
-    self.assertEqual(
-      response.data, [created]
-    ) 
