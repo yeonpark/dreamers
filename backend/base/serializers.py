@@ -52,7 +52,7 @@ class MonthlyApplicationSchemaSerializer(serializers.ModelSerializer):
 class ScholarshipApplicationSchemaSerializer(serializers.ModelSerializer):
   class Meta:
     model = ScholarshipApplicationSchema
-    fields = ('_id', 'institution_name', 'scholarship')
+    fields = ('_id', 'institution_name', 'tuition')
 
 class ApplicationSchemaSerializer(serializers.ModelSerializer):
   schema = serializers.SerializerMethodField()

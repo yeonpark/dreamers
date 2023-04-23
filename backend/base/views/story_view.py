@@ -87,7 +87,11 @@ def postStory(request):
     schema=parent
   )
   for cat in data['category'].split(', '):
-    story.category.add(ApplicationSchema.objects.create(keyword=cat))
+      try:
+        category = ApplicationCategory.objects.get(keyword=cat)
+        story.category.add(category)
+      except ObjectDoesNotExist:
+         story.category.add(ApplicationCategory.objects.create(keyword=cat))
   serializer = StorySerializer(story)
   return Response(serializer.data)
   
