@@ -27,6 +27,7 @@ class StoriesList(APIView):
     try:
       queryset = Story.objects.all().order_by('-createdAt')
 
+      count = int(self.request.query_params.get('count', 0))
       user = self.request.query_params.get('user', None)
       category = self.request.query_params.get('category', None)
       from_date = self.request.query_params.get('from_date', None)
@@ -45,6 +46,8 @@ class StoriesList(APIView):
         queryset = queryset.filter(createdAt__range=[from_date,to_date])     
       if search_words:
         queryset = queryset.filter(full_detail__contains=search_words)
+      if count:
+        queryset = queryset[:count]
 
     except ObjectDoesNotExist:
       raise serializers.ValidationError("Item does not exist.", 404)
