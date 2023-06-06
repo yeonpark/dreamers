@@ -28,9 +28,9 @@ def registerUser(request):
   try:
     user = User.objects.create(
       first_name = data['name'],
-      username = data['email'],
-      email=data['email'],
-      password=make_password(data['password'])
+      username = data['username'],
+      email = data['email'],
+      password = make_password(data['password'])
     )
 
     serializer = UserSerializerWithToken(user, many=False)
@@ -68,4 +68,35 @@ def getUsers(request):
   users = User.objects.all()
   serializer = UserSerializer(users, many=True)
   return Response(serializer.data)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def changeEmail(request):
+  user = request.user
+  data = request.data
+  try:
+    if (user.email == data['newEmail']):
+      raise ValidationError(
+        'New email cannot be same as current email.')
+    user.email = data['newEmail']
+    user.save()
+    return Response(True)
+  except ValidationError as e:
+    raise serializers.ValidationError(e.message)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])  #verify with token
+def changeUsername(request):
+  user = request.user
+  data = request.data
+  try:
+    if (user.username == data['newUsername']):
+      raise ValidationError(
+        'New username cannot be same as current username.')
+    user.name = data['newUsername']
+    user.save()
+    return Response(True)
+  except ValidationError as e:
+    raise serializers.ValidationError(e.message)
+
 
