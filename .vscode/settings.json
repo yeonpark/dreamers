@@ -1,4 +1,8 @@
 {
   "cmake.configureOnOpen": false,
-  "cmake.sourceDirectory": "${workspaceFolder}/frontend/linux"
+  "cmake.sourceDirectory": "${workspaceFolder}/frontend/linux",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "python.formatting.provider": "none"
 }
