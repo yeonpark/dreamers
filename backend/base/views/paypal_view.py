@@ -2,14 +2,19 @@ import base64
 import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from dotenv import dotenv_values
 
-# Paypal Sandbox API Credentials
-clientID = 'AQKTzHRL-ef4QulJQauXLXVALzXGEJFN4sqNt6QRjclVTkspl3wnCIwigYpMHzRINlG1mTn0VcI7rkte'
-clientSecret = 'ECkit2sj9U5VysIRYHdIlkJ8GpWwRGzSuYSXhXLe9nUTARF_1Pdyr9O8WL2tvBklK-QkILi8EcyDo3Pc'
+# Retreiving API credentials from dotenv
+creds = {}
+config = dotenv_values(".env")
+for key, value in config.items():
+    creds[key] = value
+
+clientID = creds['clientID']
+clientSecret = creds['clientSecret']
+
 
 # Function returning Paypal Sandbox access token
-
-
 def PaypalToken(client_ID, client_Secret):
     url = "https://api.sandbox.paypal.com/v1/oauth2/token"
     data = {
