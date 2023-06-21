@@ -18,26 +18,30 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ApplicationCategory',
             fields=[
-                ('keyword', models.CharField(max_length=30, primary_key=True, serialize=False)),
+                ('keyword', models.CharField(
+                    max_length=30, primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
             name='ApplicationSchema',
             fields=[
-                ('_id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('_id', models.UUIDField(default=uuid.uuid4,
+                 editable=False, primary_key=True, serialize=False)),
                 ('schema_name', models.CharField(max_length=30)),
             ],
         ),
         migrations.CreateModel(
             name='Social',
             fields=[
-                ('_id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('_id', models.UUIDField(default=uuid.uuid4,
+                 editable=False, primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
             name='Story',
             fields=[
-                ('_id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('_id', models.UUIDField(default=uuid.uuid4,
+                 editable=False, primary_key=True, serialize=False)),
                 ('heading', models.CharField(max_length=50)),
                 ('sub_heading', models.CharField(max_length=50)),
                 ('country', models.CharField(max_length=30)),
@@ -45,10 +49,14 @@ class Migration(migrations.Migration):
                 ('full_detail', models.TextField()),
                 ('is_verified', models.BooleanField(default=False)),
                 ('createdAt', models.DateTimeField(auto_now_add=True)),
-                ('category', models.ManyToManyField(blank=True, related_name='story_category', to='base.applicationcategory')),
-                ('schema', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='story_schema', to='base.applicationschema')),
-                ('social', models.OneToOneField(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='social_features', to='base.social')),
-                ('user', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.CASCADE, related_name='story_user', to=settings.AUTH_USER_MODEL)),
+                ('category', models.ManyToManyField(blank=True,
+                 related_name='story_category', to='base.applicationcategory')),
+                ('schema', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='story_schema', to='base.applicationschema')),
+                ('social', models.OneToOneField(null=True, on_delete=django.db.models.deletion.SET_NULL,
+                 related_name='social_features', to='base.social')),
+                ('user', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.CASCADE,
+                 related_name='story_user', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ['createdAt'],
@@ -57,28 +65,36 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StoryImage',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('image', models.ImageField(upload_to='item')),
                 ('thumbnail', models.BooleanField(default=False)),
-                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='item_image', to='base.story')),
+                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='item_image', to='base.story')),
             ],
         ),
         migrations.CreateModel(
             name='ScholarshipApplicationSchema',
             fields=[
-                ('_id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('_id', models.UUIDField(default=uuid.uuid4,
+                 editable=False, primary_key=True, serialize=False)),
                 ('institution_name', models.CharField(max_length=30)),
-                ('tuition', models.DecimalField(decimal_places=2, default=0, max_digits=7)),
-                ('parent', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='base.applicationschema')),
+                ('tuition', models.DecimalField(
+                    decimal_places=2, default=0, max_digits=7)),
+                ('parent', models.OneToOneField(
+                    on_delete=django.db.models.deletion.CASCADE, to='base.applicationschema')),
             ],
         ),
         migrations.CreateModel(
             name='MonthlyApplicationSchema',
             fields=[
-                ('_id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('_id', models.UUIDField(default=uuid.uuid4,
+                 editable=False, primary_key=True, serialize=False)),
                 ('month_cnt', models.IntegerField()),
-                ('monthly_stipend', models.DecimalField(decimal_places=2, default=0, max_digits=7)),
-                ('parent', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='base.applicationschema')),
+                ('monthly_stipend', models.DecimalField(
+                    decimal_places=2, default=0, max_digits=7)),
+                ('parent', models.OneToOneField(
+                    on_delete=django.db.models.deletion.CASCADE, to='base.applicationschema')),
             ],
         ),
     ]
