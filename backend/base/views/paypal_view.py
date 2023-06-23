@@ -3,6 +3,7 @@ import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from dotenv import dotenv_values
+from django.http import HttpResponseRedirect
 
 # Retreiving API credentials from dotenv
 creds = {}
@@ -44,7 +45,8 @@ class CreateOrderView(APIView):
             "application_context": {
                 "notify_url": "https://notify.eu",
                 # Redirects to "capture order" url if payment is approved
-                "return_url": "http://127.0.0.1:8000/api/paypal/capture/order/",
+                "return_url": "https://www.google.com",
+                # "return_url": "https://www.google.com",
                 "cancel_url": "https://www.cancel.com",
                 "brand_name": "Dreamers",
                 "landing_page": "BILLING",
@@ -60,7 +62,7 @@ class CreateOrderView(APIView):
                     "soft_descriptor": "Arsenal-UCL-Chammpions",
                     "amount": {
                         "currency_code": "HKD",  # Currency
-                        "value": "77"  # Price
+                        "value": "1"  # Price
                     },
                     "payee": {
                         "email_address": "dreamersbiz@business.example.com",
@@ -71,7 +73,8 @@ class CreateOrderView(APIView):
         response = requests.post(
             'https://api-m.sandbox.paypal.com/v2/checkout/orders', headers=headers, json=json_data)
         linkForPayment = response.json()['links'][1]['href']
-        return Response(linkForPayment)
+        return HttpResponseRedirect(redirect_to=linkForPayment)
+        # return Response(linkForPayment)
 
 # Captures the order. Returns order/payment details.
 
