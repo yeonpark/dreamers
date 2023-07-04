@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 from datetime import timedelta
 from pathlib import Path
@@ -185,7 +185,7 @@ CORS_ALLOWED_ORIGINS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # dot env
-load_dotenv()
+# load_dotenv()
 
 # Paypal API credentials
 clientID = os.environ.get('clientId')

@@ -8,4 +8,6 @@ urlpatterns = [
     # path('category', views.get),
     path('post-story/', views.postStory, name='post-story'),
     path('<str:pk>/', views.getStory, name='get-story'),
+    path('like/<str:pk>/', views.likeStory, name='like-item'),
+    path('unlike/<str:pk>/', views.unlikeStory, name='unlike-item'),
 ]

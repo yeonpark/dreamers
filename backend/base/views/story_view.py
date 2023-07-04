@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, ValidationError
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status, serializers
 from rest_framework.views import APIView
@@ -12,7 +13,7 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def getStory(request, pk):
     try:
         item = Story.objects.get(pk=pk)
@@ -27,26 +28,25 @@ class StoriesList(APIView):
 
     def get(self, request, *args, **kwargs):
         try:
-            queryset = Story.objects.all().order_by('-createdAt')
+            queryset = Story.objects.all().order_by("-createdAt")
 
-            count = int(self.request.query_params.get('count', 0))
-            user = self.request.query_params.get('user', None)
-            category = self.request.query_params.get('category', None)
-            from_date = self.request.query_params.get('from_date', None)
-            to_date = self.request.query_params.get('to_date', None)
-            search_words = self.request.query_params.get('search_words', None)
+            count = int(self.request.query_params.get("count", 0))
+            user = self.request.query_params.get("user", None)
+            category = self.request.query_params.get("category", None)
+            from_date = self.request.query_params.get("from_date", None)
+            to_date = self.request.query_params.get("to_date", None)
+            search_words = self.request.query_params.get("search_words", None)
 
             if user:
                 queryset = queryset.filter(user=user)
             if category:
                 queryset = queryset.filter(category__keyword=category)
             if from_date and to_date:
-                date_format = '%Y-%m-%d'
+                date_format = "%Y-%m-%d"
                 from_date = datetime.strptime(from_date, date_format)
                 to_date = datetime.strptime(to_date, date_format)
                 to_date = to_date + timedelta(days=1)
-                queryset = queryset.filter(
-                    createdAt__range=[from_date, to_date])
+                queryset = queryset.filter(createdAt__range=[from_date, to_date])
             if search_words:
                 queryset = queryset.filter(full_detail__contains=search_words)
             if count:
@@ -59,45 +59,52 @@ class StoriesList(APIView):
         return Response(serializer.data)
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 @csrf_exempt
 @permission_classes([IsAuthenticated])
 def postStory(request):
     data = request.data
-
-    # Monthly and Scholarhips Inheriting ApplicationSchema allows flexibiliity
-    parent = ApplicationSchema.objects.create(
-        schema_name=data['schema']
+    story_finance = StoryFinance.objects.create(
+        total_fund_request_size=float(data["fund_request_size"]), current_donated_size=0
     )
-
-    if data['schema'] == 'monthly':
-        MonthlyApplicationSchema.objects.create(
-            month_cnt=data['month_cnt'],
-            monthly_stipend=data['monthly_stipend'],
-            parent=parent,
-        )
-    elif data['schema'] == 'tuition':
-        ScholarshipApplicationSchema.objects.create(
-            institution_name=data['institution_name'],
-            tuition=data['tuition'],
-            parent=parent
-        )
-
+    story_finance.save()
+    profile = UserProfile.objects.get(user=request.user)
     story = Story.objects.create(
-        user=request.user,
-        heading=data['heading'],
-        sub_heading=data['sub_heading'],
-        country=data['country'],
-        summary=data['summary'],
-        full_detail=data['full_detail'],
+        user=profile,
+        heading=data["heading"],
+        sub_heading=data["sub_heading"],
+        country=data["country"],
+        summary=data["summary"],
         is_verified=True,
-        schema=parent
+        full_detail=data["full_detail"],
+        finance=story_finance,
     )
-    for cat in data['category'].split(', '):
-        try:
-            category = ApplicationCategory.objects.get(keyword=cat)
-            story.category.add(category)
-        except ObjectDoesNotExist:
-            story.category.add(ApplicationCategory.objects.create(keyword=cat))
+    story.save()
     serializer = StorySerializer(story)
     return Response(serializer.data)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def likeStory(request, pk):
+    item = Story.objects.get(pk=pk)
+    profile = UserProfile.objects.get(user=request.user)
+    like = Like.objects.create(user=profile, story=item)
+    like.save()
+    return Response(True)
+
+
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def unlikeStory(request, pk):
+    user = request.user
+    try:
+        pf = UserProfile.objects.prefetch_related("like_user").get(user=user)
+        like = pf.like_user.filter(story_id=pk)
+        like.delete()
+        return Response(True)
+    except PermissionDenied or ObjectDoesNotExist as e:
+        if type(e) is PermissionDenied:
+            raise serializers.ValidationError("Login First")
+        elif type(e) is ObjectDoesNotExist:
+            raise serializers.ValidationError("Object Does Not Exist.")
