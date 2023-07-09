@@ -46,7 +46,7 @@ class StoriesList(APIView):
                 from_date = datetime.strptime(from_date, date_format)
                 to_date = datetime.strptime(to_date, date_format)
                 to_date = to_date + timedelta(days=1)
-                queryset = queryset.filter(createdAt__range=[from_date, to_date])
+                queryset = queryset.filter(created_at__range=[from_date, to_date])
             if search_words:
                 queryset = queryset.filter(full_detail__contains=search_words)
             if count:
