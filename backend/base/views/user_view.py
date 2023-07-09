@@ -204,4 +204,5 @@ def getNotifications(request):
 def readNotification(request, pk):
     notification = Notification.objects.get(pk=pk)
     notification.read = True
+    notificatino.save()
     return Response(True)
