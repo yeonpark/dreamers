@@ -82,7 +82,7 @@ class StoryImageSerializer(serializers.ModelSerializer):
 class StorySerializer(serializers.ModelSerializer):
     images = StoryImageSerializer(source="item_image", many=True)
     user = UserProfileSerializer(read_only=True)
-    category = StoryTagSerializer(read_only=True, many=True)
+    category = StoryTagSerializer(read_only=True, many=True, source="tags")
     likes = LikeSerializer(read_only=True, many=True, source="like_story")
 
     class Meta:

@@ -28,7 +28,7 @@ class StoriesList(APIView):
 
     def get(self, request, *args, **kwargs):
         try:
-            queryset = Story.objects.all().order_by("-createdAt")
+            queryset = Story.objects.all().order_by("-created_at")
 
             count = int(self.request.query_params.get("count", 0))
             user = self.request.query_params.get("user", None)
@@ -79,6 +79,11 @@ def postStory(request):
         full_detail=data["full_detail"],
         finance=story_finance,
     )
+    for tag in data["category"].split(", "):
+        story_tag = StoryTag.objects.get_or_create(
+            keyword=tag
+        )
+        story.tags.add(story_tag[0])
     story.save()
     serializer = StorySerializer(story)
     return Response(serializer.data)
