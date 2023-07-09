@@ -40,7 +40,7 @@ class StoriesList(APIView):
             if user:
                 queryset = queryset.filter(user=user)
             if category:
-                queryset = queryset.filter(category__keyword=category)
+                queryset = queryset.filter(tags__keyword=category)
             if from_date and to_date:
                 date_format = "%Y-%m-%d"
                 from_date = datetime.strptime(from_date, date_format)
