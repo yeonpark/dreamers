@@ -85,6 +85,18 @@ def postStory(request):
         )
         story.tags.add(story_tag[0])
     story.save()
+
+    reqImages = request.FILES.getlist('images')
+    for i, reqImage in enumerate(reqImages):
+      StoryImage.objects.create(
+        item = story,
+        image = reqImage,
+        thumbnail = (i == 0),
+      )
+    
+    savedImages = StoryImage.objects.filter(item=story)
+    serializer = StoryImageSerializer(savedImages, many=True)
+
     serializer = StorySerializer(story)
     return Response(serializer.data)
 
