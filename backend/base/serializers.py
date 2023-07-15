@@ -64,12 +64,13 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         fields = "__all__"
 
-
-# Like
+# Notification
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
-        fields = "__all__"
+        fields = (
+            "user",
+        )
 
 
 # Story
@@ -132,3 +133,12 @@ class DonationSerializer(serializers.ModelSerializer):
     class Meta:
         model = StoryFinance
         fields = "__all__"
+
+# Like
+class WishlistSerializer(serializers.ModelSerializer):
+    story = StorySerializer(read_only=True)
+    class Meta:
+        model = Like
+        fields = (
+            "story",
+        )

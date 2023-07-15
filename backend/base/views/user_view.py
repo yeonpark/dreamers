@@ -15,8 +15,9 @@ from base.serializers import (
     NotificationSerializer,
     UserProfileSerializer,
     UserProfileImageSerializer,
+    WishlistSerializer
 )
-from base.models import UserProfile, Notification
+from base.models import UserProfile, Notification, Like
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -121,18 +122,6 @@ def changeUsername(request):
         raise serializers.ValidationError(e.message)
 
 
-@api_view(["GET"])
-@permission_classes([IsAuthenticated])
-def getNotifications(request):
-    if not request.user:
-        raise ValidationError("You must sign up to wishlist.")
-    user = request.user
-    profile = UserProfile.objects.get(user=user)
-    notifications = profile.notification_profile.get(read=False)
-    serializer = NotificationSerializer(notifications, many=True)
-    return Response(serializer.data)
-
-
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def getUserProfile(request):
@@ -204,5 +193,15 @@ def getNotifications(request):
 def readNotification(request, pk):
     notification = Notification.objects.get(pk=pk)
     notification.read = True
-    notificatino.save()
+    notification.save()
     return Response(True)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getLikedStories(request):
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+
+    wishlist = Like.objects.filter(user=user_profile)
+    serializer = WishlistSerializer(wishlist, many=True)
+    return Response(serializer.data)

@@ -15,8 +15,9 @@ urlpatterns = [
     ),
     path("profile/", views.getUserProfile, name="user_profile"),
     path("profile/update/", views.updateUserProfile, name="users_profile_update"),
-    path("get-notifications/", views.getNotifications, name="getNotifications"),
+    path("get-notifications/", views.getNotifications, name="get_notifications"),
     path(
-        "read-notification/<str:pk>/", views.readNotification, name="readNotifications"
+        "read-notification/<str:pk>/", views.readNotification, name="read_notifications"
     ),
+    path("get-liked-stories/", views.getLikedStories, name='get_liked_stories')
 ]

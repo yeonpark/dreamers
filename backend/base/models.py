@@ -1,6 +1,8 @@
+import datetime
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
@@ -100,7 +102,7 @@ class Like(models.Model):
     story = models.ForeignKey(
         Story, on_delete=models.CASCADE, related_name="like_story"
     )
-
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class Notification(models.Model):
     user = models.ForeignKey(
