@@ -106,8 +106,7 @@ def postStory(request):
 def likeStory(request, pk):
     item = Story.objects.get(pk=pk)
     profile = UserProfile.objects.get(user=request.user)
-    like = Like.objects.create(user=profile, story=item)
-    like.save()
+    like = Like.objects.get_or_create(user=profile, story=item)
     return Response(True)
 
 

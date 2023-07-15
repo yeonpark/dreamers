@@ -1,3 +1,4 @@
+import json
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -204,4 +205,9 @@ def getLikedStories(request):
 
     wishlist = Like.objects.filter(user=user_profile)
     serializer = WishlistSerializer(wishlist, many=True)
+
+    for i, liked_story in enumerate(serializer.data):
+        serializer.data[i] = serializer.data[i]['story']
+    
+    print(json.dumps(serializer.data, indent=4))
     return Response(serializer.data)
